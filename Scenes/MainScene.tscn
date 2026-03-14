@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://b0omctuk26m5o"]
+
+[ext_resource type="Script" uid="uid://bn0yrlpqjox4d" path="res://Scripts/MainScene.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ceok2ym3h4mn6" path="res://Assets/Environment/table_background.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b3lj0e8po36si" path="res://Assets/Characters/dealer_sprite.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dlrvyeyoin1ae" path="res://Assets/Objects/shotgun_sprite.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dbgbw1mdsb45n" path="res://Assets/Characters/player_hands.png" id="5"]
+[ext_resource type="Script" uid="uid://ckg37wso5tued" path="res://Scripts/Systems/ShotgunSystem.gd" id="6"]
+[ext_resource type="Script" uid="uid://dpum4bgtxgt1t" path="res://Scripts/Systems/RoundSystem.gd" id="7"]
+[ext_resource type="Script" uid="uid://dfi8po5fyju3o" path="res://Scripts/Systems/HealthComponent.gd" id="8"]
+[ext_resource type="Script" uid="uid://bqmishcydqopm" path="res://Scripts/Systems/PlayerController.gd" id="9"]
+[ext_resource type="Script" uid="uid://r62f8htok35k" path="res://Scripts/Systems/DealerTurnLogic.gd" id="10"]
+[ext_resource type="Script" uid="uid://b508ys7eeiodt" path="res://Scripts/UI/UIManager.gd" id="11"]
+[ext_resource type="Texture2D" uid="uid://v8micpc8rbxw" path="res://Assets/UI/shoot_self_button.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://2xb351x643vy" path="res://Assets/UI/shoot_dealer_button.png" id="13"]
+[ext_resource type="Shader" uid="uid://cxose71ao36v2" path="res://Scripts/vignette.gdshader" id="14"]
+[ext_resource type="Texture2D" uid="uid://c5ld18wv3r6v4" path="res://Assets/Objects/cig_sprite.png" id="17_c1ier"]
+[ext_resource type="Texture2D" uid="uid://cex62nyxixff" path="res://Assets/Objects/magnifying_glass_sprite.png" id="18_gyaec"]
+[ext_resource type="Texture2D" uid="uid://c8g36hblxga70" path="res://Assets/Objects/soda_sprite.png" id="19_bpy1e"]
+[ext_resource type="Texture2D" uid="uid://dpdeqi5lbowy7" path="res://Assets/Objects/handsaw_sprite.png" id="20_p5ymy"]
+[ext_resource type="FontFile" uid="uid://dotxwoy5lnfrb" path="res://Assets/UI/Creepster-Regular.ttf" id="creepster_font"]
+[ext_resource type="Texture2D" uid="uid://b2551if2xaibv" path="res://Assets/Objects/shell_trey.jpeg" id="shell_trey"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
+shader = ExtResource("14")
+shader_parameter/vignette_strength = 0.3
+shader_parameter/vignette_radius = 0.75
+shader_parameter/softness = 0.45
+
+[node name="MainScene" type="Node2D" unique_id=903834437]
+script = ExtResource("1")
+
+[node name="TableSprite" type="Sprite2D" parent="." unique_id=1793107891]
+position = Vector2(580, 392)
+scale = Vector2(1.0756732, 1)
+texture = ExtResource("2")
+
+[node name="DealerSprite" type="Sprite2D" parent="." unique_id=1750340932]
+z_index = 1
+position = Vector2(585, 90)
+scale = Vector2(1.0927644, 0.80396485)
+texture = ExtResource("3")
+
+[node name="ShotgunSprite" type="Sprite2D" parent="." unique_id=855159093]
+z_index = 4
+position = Vector2(574.99994, 374.00003)
+scale = Vector2(0.40296817, 0.34306666)
+texture = ExtResource("4")
+
+[node name="PlayerHandsSprite" type="Sprite2D" parent="." unique_id=1852950517]
+z_index = 3
+position = Vector2(579, 590)
+scale = Vector2(0.9426494, 1)
+texture = ExtResource("5")
+
+[node name="ShotgunSystem" type="Node" parent="." unique_id=180260126]
+script = ExtResource("6")
+
+[node name="RoundSystem" type="Node" parent="." unique_id=1859055800]
+script = ExtResource("7")
+
+[node name="Player" type="Node" parent="." unique_id=1397867384]
+script = ExtResource("8")
+
+[node name="Dealer" type="Node" parent="." unique_id=1309233386]
+script = ExtResource("8")
+
+[node name="PlayerController" type="Node" parent="." unique_id=1624771833]
+script = ExtResource("9")
+
+[node name="DealerTurnLogic" type="Node" parent="." unique_id=952442532]
+script = ExtResource("10")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1844637004]
+script = ExtResource("11")
+
+[node name="IntroPanel" type="ColorRect" parent="CanvasLayer" unique_id=314159265]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 7.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0, 0, 0.85)
+
+[node name="RoundLabel" type="Label" parent="CanvasLayer/IntroPanel" unique_id=271828182]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -170.0
+offset_right = 150.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("creepster_font")
+theme_override_font_sizes/font_size = 64
+text = "ROUND 1"
+horizontal_alignment = 1
+
+[node name="CountLabel" type="Label" parent="CanvasLayer/IntroPanel" unique_id=271828183]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("creepster_font")
+theme_override_font_sizes/font_size = 32
+text = "2 LIVE, 2 BLANK"
+horizontal_alignment = 1
+
+[node name="TrayContainer" type="Control" parent="CanvasLayer/IntroPanel" unique_id=112358132]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -38.0
+offset_right = 290.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GlowRect" type="ColorRect" parent="CanvasLayer/IntroPanel/TrayContainer" unique_id=314271828]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5, 0, 0, 0.55)
+
+[node name="TrayImage" type="TextureRect" parent="CanvasLayer/IntroPanel/TrayContainer" unique_id=918273645]
+modulate = Color(1, 0.82, 0.75, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("shell_trey")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="SlotsOverlay" type="Control" parent="CanvasLayer/IntroPanel/TrayContainer" unique_id=182736459]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 29.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VignetteOverlay" type="ColorRect" parent="CanvasLayer" unique_id=96075541]
+material = SubResource("ShaderMaterial_vignette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -22.0
+offset_right = 1.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=246296507]
+layout_mode = 3
+anchor_top = -0.279
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 201.792
+offset_right = -28.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerHPContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=442291147]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 40.0
+offset_right = 276.0
+offset_bottom = 86.0
+
+[node name="DealerHPContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=1946002029]
+layout_mode = 0
+offset_left = 860.0
+offset_top = 33.0
+offset_right = 1078.0
+offset_bottom = 83.0
+alignment = 2
+
+[node name="ShellContainer" type="VBoxContainer" parent="CanvasLayer/UI" unique_id=915739385]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 20.0
+offset_right = 700.0
+offset_bottom = 120.0
+rotation = 1.5707964
+
+[node name="ShootSelfButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=238123634]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 417.0
+offset_right = 593.0
+offset_bottom = 591.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("12")
+stretch_mode = 0
+
+[node name="ShootDealerButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=1630559196]
+layout_mode = 0
+offset_left = 771.0
+offset_top = 413.0
+offset_right = 1270.0
+offset_bottom = 607.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("13")
+stretch_mode = 0
+
+[node name="CigSprite" type="Sprite2D" parent="." unique_id=1644550220]
+position = Vector2(1089, 228.00003)
+scale = Vector2(0.10959168, 0.08837891)
+texture = ExtResource("17_c1ier")
+
+[node name="MagnifyingGlassSprite" type="Sprite2D" parent="." unique_id=208509020]
+position = Vector2(985, 234)
+scale = Vector2(0.12646484, 0.1279297)
+texture = ExtResource("18_gyaec")
+
+[node name="SodaSprite" type="Sprite2D" parent="." unique_id=1283728560]
+top_level = true
+z_index = 3
+position = Vector2(53, 586.00006)
+scale = Vector2(0.0948355, 0.07714841)
+texture = ExtResource("19_bpy1e")
+
+[node name="HandsawSprite" type="Sprite2D" parent="." unique_id=1351567180]
+z_index = 3
+position = Vector2(142, 591)
+scale = Vector2(0.06835938, 0.066406265)
+texture = ExtResource("20_p5ymy")
