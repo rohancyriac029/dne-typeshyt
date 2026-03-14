@@ -20,6 +20,15 @@ func fire() -> String:
 	return shells.pop_front()
 
 
+## Ejects the top shell blindly (Soda item). Returns it for logging but callers may ignore.
+func eject() -> String:
+	if shells.is_empty():
+		return ""
+	var s: String = shells.pop_front()
+	print("[Shotgun] Ejected (blind): ", s)
+	return s
+
+
 func peek_next() -> String:
 	return shells[0] if not shells.is_empty() else ""
 
@@ -38,3 +47,4 @@ func live_count() -> int:
 
 func blank_count() -> int:
 	return shells.count("BLANK")
+

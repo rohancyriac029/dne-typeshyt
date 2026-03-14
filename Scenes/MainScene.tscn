@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://c8g36hblxga70" path="res://Assets/Objects/soda_sprite.png" id="19_bpy1e"]
 [ext_resource type="Texture2D" uid="uid://dpdeqi5lbowy7" path="res://Assets/Objects/handsaw_sprite.png" id="20_p5ymy"]
 [ext_resource type="FontFile" uid="uid://dotxwoy5lnfrb" path="res://Assets/UI/Creepster-Regular.ttf" id="creepster_font"]
+[ext_resource type="Script" uid="uid://dwfrcqhxhp0qm" path="res://Scripts/Systems/ItemSystem.gd" id="item_system_script"]
 [ext_resource type="Texture2D" uid="uid://b2551if2xaibv" path="res://Assets/Objects/shell_trey.jpeg" id="shell_trey"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
@@ -58,6 +59,9 @@ script = ExtResource("6")
 
 [node name="RoundSystem" type="Node" parent="." unique_id=1859055800]
 script = ExtResource("7")
+
+[node name="ItemSystem" type="Node" parent="." unique_id=472938105]
+script = ExtResource("item_system_script")
 
 [node name="Player" type="Node" parent="." unique_id=1397867384]
 script = ExtResource("8")
@@ -208,17 +212,19 @@ grow_vertical = 2
 
 [node name="PlayerHPContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=442291147]
 layout_mode = 0
-offset_left = 57.0
-offset_top = 40.0
-offset_right = 276.0
-offset_bottom = 86.0
+offset_left = 804.0
+offset_top = 570.0
+offset_right = 1023.0
+offset_bottom = 616.0
+scale = Vector2(0.5, 0.5)
 
 [node name="DealerHPContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=1946002029]
 layout_mode = 0
-offset_left = 860.0
-offset_top = 33.0
-offset_right = 1078.0
-offset_bottom = 83.0
+offset_left = 121.0
+offset_top = 27.0
+offset_right = 339.0
+offset_bottom = 77.0
+scale = Vector2(0.5, 0.5)
 alignment = 2
 
 [node name="ShellContainer" type="VBoxContainer" parent="CanvasLayer/UI" unique_id=915739385]
@@ -248,6 +254,61 @@ offset_bottom = 607.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("13")
 stretch_mode = 0
+
+[node name="PlayerItemContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=382910475]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 530.0
+offset_right = 780.0
+offset_bottom = 590.0
+alignment = 1
+
+[node name="DealerItemContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=192837465]
+modulate = Color(0.7, 0.7, 0.7, 1)
+layout_mode = 0
+offset_left = 306.0
+offset_top = 142.0
+offset_right = 806.0
+offset_bottom = 202.0
+alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="CanvasLayer/UI" unique_id=564738291]
+visible = false
+layout_mode = 0
+offset_left = 380.0
+offset_top = 270.0
+offset_right = 720.0
+offset_bottom = 340.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("creepster_font")
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="TurnLabel" type="Label" parent="CanvasLayer/UI" unique_id=739284759]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -70.0
+offset_right = 1.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("creepster_font")
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 2
 
 [node name="CigSprite" type="Sprite2D" parent="." unique_id=1644550220]
 position = Vector2(1089, 228.00003)
