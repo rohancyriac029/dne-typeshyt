@@ -39,6 +39,19 @@ func distribute_items(count: int) -> void:
 	emit_signal("dealer_items_changed", dealer_items)
 
 
+## Ghost Round 4: exactly 1x +4 Card each. No other items.
+func distribute_ghost_items() -> void:
+	var plus4_script = preload("res://Scripts/Items/ItemPlus4Card.gd")
+	player_items.clear()
+	dealer_items.clear()
+	player_items.append(plus4_script.new())
+	dealer_items.append(plus4_script.new())
+	print("[ItemSystem] Ghost items — Player: ", _names(player_items))
+	print("[ItemSystem] Ghost items — Dealer: ", _names(dealer_items))
+	emit_signal("player_items_changed", player_items)
+	emit_signal("dealer_items_changed", dealer_items)
+
+
 func player_use_item(index: int) -> void:
 	if index < 0 or index >= player_items.size():
 		return

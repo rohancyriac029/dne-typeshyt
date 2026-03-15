@@ -11,6 +11,8 @@ enum State {
 	RESOLVE_SHOT,
 	WIN,
 	LOSE,
+	GHOST_ROUND_START,
+	RESURRECTION,
 }
 
 var current_state: State = State.INIT
@@ -34,6 +36,10 @@ var pending_target: String  = ""
 var player_cuffed: bool  = false
 var dealer_cuffed: bool  = false
 var shotgun_damage: int  = 1   # reset to 1 after every shot
+
+# ── Round 4 (Ghost) flags ─────────────────────────────────────────────
+var is_ghost_round: bool        = false
+var is_resurrected_round3: bool = false
 
 signal state_changed(new_state: State)
 
@@ -68,7 +74,12 @@ func _on_state_entered(state: State) -> void:
 			change_state(State.PLAYER_TURN)
 
 		State.PLAYER_TURN:
-			pass  # Wait for player button press
+			# Ghost Ally "Whisper" — Resurrected Round 3
+			if is_resurrected_round3 and shotgun_system.remaining_count() > 1:
+				var next_shell: String = shotgun_system.peek_at(1)
+				if next_shell != "" and ui_manager and ui_manager.has_method("show_ghost_whisper"):
+					await ui_manager.show_ghost_whisper(next_shell)
+			# Then wait for player button press
 
 		State.DEALER_TURN:
 			await get_tree().create_timer(1.8).timeout
@@ -81,7 +92,24 @@ func _on_state_entered(state: State) -> void:
 			pass  # UIManager listens and switches scene
 
 		State.LOSE:
-			pass  # UIManager listens and switches scene
+			# If we died in Round 3 (index 2) and NOT already in ghost/resurrected
+			# → enter Round 4 instead of showing LoseScreen
+			if round_system.current_round == 2 and not is_ghost_round and not is_resurrected_round3:
+				print("[GSM] Died in Round 3 → entering Ghost Round 4")
+				await get_tree().create_timer(1.5).timeout
+				change_state(State.GHOST_ROUND_START)
+				return
+			# Otherwise: permanent death → UIManager switches to LoseScreen
+
+		State.GHOST_ROUND_START:
+			is_ghost_round = true
+			player_cuffed  = false
+			dealer_cuffed  = false
+			shotgun_damage = 1
+			round_system.load_ghost_round()
+
+		State.RESURRECTION:
+			_handle_resurrection()
 
 
 func _resolve_shot() -> void:
@@ -146,6 +174,12 @@ func _resolve_shot() -> void:
 		reset_tween.tween_property(shotgun_sprite, "rotation", 0.0, 0.3)
 		await reset_tween.finished
 
+	# ── Ghost Round 4 resolution ──────────────────────────────────────
+	if is_ghost_round:
+		_resolve_ghost_shot(shell, damage)
+		return
+
+	# ── Normal Rounds 1–3 resolution (unchanged) ─────────────────────
 	if shell == "LIVE":
 		var target_node: Node = player if pending_target == "player" else dealer
 		target_node.take_damage(damage)
@@ -213,6 +247,81 @@ func dealer_shoot(target: String) -> void:
 	pending_shooter = "dealer"
 	pending_target  = target
 	change_state(State.RESOLVE_SHOT)
+
+
+# ── Ghost Round 4 shot resolution ─────────────────────────────────────
+
+func _resolve_ghost_shot(shell: String, damage: int) -> void:
+	if shell == "LIVE":
+		var shot_self: bool = (pending_shooter == pending_target)
+
+		if pending_shooter == "player" and shot_self:
+			# Ghost shoots self with LIVE → RESURRECTION WIN!
+			print("[GSM] GHOST WIN — Player shot self with LIVE → Resurrection!")
+			player.take_damage(damage)  # visual: orb shatters
+			await get_tree().create_timer(0.8).timeout
+			change_state(State.RESURRECTION)
+			return
+
+		if pending_target == "player":
+			# Dealer shot Ghost with LIVE → permanent death
+			print("[GSM] GHOST LOSE — Dealer hit Ghost with LIVE → permanent death")
+			player.take_damage(damage)
+			await get_tree().create_timer(1.0).timeout
+			is_ghost_round = false  # Reset before going to LOSE
+			change_state(State.LOSE)
+			return
+
+		if pending_target == "dealer":
+			# Shooting dealer with LIVE does nothing (∞ HP), but turn still passes
+			print("[GSM] Ghost round: LIVE hit dealer — no effect (∞ HP)")
+	else:
+		# BLANK — does nothing to any target in Round 4
+		print("[GSM] Ghost round: BLANK — no effect")
+
+	# Check if barrel is exhausted → Ghost loses (barrel ran out)
+	if shotgun_system.is_empty():
+		print("[GSM] GHOST LOSE — barrel exhausted, no resurrection")
+		await get_tree().create_timer(1.0).timeout
+		is_ghost_round = false
+		change_state(State.LOSE)
+		return
+
+	# Standard turn switching (blank self = keep turn, else switch)
+	var shot_self_blank: bool = (pending_shooter == pending_target) and shell == "BLANK"
+	if shot_self_blank:
+		print("[GSM] Ghost BLANK (self) — ", pending_shooter, " shoots again.")
+		await get_tree().create_timer(1.0).timeout
+		if pending_shooter == "player":
+			change_state(State.PLAYER_TURN)
+		else:
+			change_state(State.DEALER_TURN)
+	else:
+		await get_tree().create_timer(1.0).timeout
+		if pending_shooter == "player":
+			if dealer_cuffed:
+				dealer_cuffed = false
+				change_state(State.PLAYER_TURN)
+			else:
+				change_state(State.DEALER_TURN)
+		else:
+			if player_cuffed:
+				player_cuffed = false
+				change_state(State.DEALER_TURN)
+			else:
+				change_state(State.PLAYER_TURN)
+
+
+# ── Resurrection handler ──────────────────────────────────────────────
+
+func _handle_resurrection() -> void:
+	print("[GSM] Resurrection sequence starting...")
+	if ui_manager and ui_manager.has_method("play_resurrection_animation"):
+		await ui_manager.play_resurrection_animation()
+	else:
+		await get_tree().create_timer(2.0).timeout
+	is_ghost_round = false
+	round_system.start_resurrected_round3()
 
 
 func _screen_shake(node: Node2D, strength: float, duration: float) -> void:

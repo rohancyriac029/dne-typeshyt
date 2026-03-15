@@ -33,6 +33,13 @@ func peek_next() -> String:
 	return shells[0] if not shells.is_empty() else ""
 
 
+## Peek at a specific index (0 = current, 1 = next, etc.)
+func peek_at(index: int) -> String:
+	if index >= 0 and index < shells.size():
+		return shells[index]
+	return ""
+
+
 func is_empty() -> bool:
 	return shells.is_empty()
 

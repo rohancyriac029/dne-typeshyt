@@ -20,10 +20,85 @@ func take_turn() -> void:
 	_peeked_shell = ""
 	var round_idx: int = gsm.round_system.current_round
 
+	# Round 4 (Ghost) — completely different AI
+	if gsm.is_ghost_round:
+		_ghost_round_turn()
+		return
+
 	if round_idx >= 1 and item_system:
 		_use_items_round2(round_idx)
 
 	_shoot_decision()
+
+
+# ── Ghost Round 4 AI ──────────────────────────────────────────────────
+
+func _ghost_round_turn() -> void:
+	# Step 1: Consider using the +4 Card
+	_consider_plus4_card()
+
+	# Step 2: Peek if we have a magnifying glass (we won't in ghost round,
+	# but keep it defensive in case future items are added)
+	_peeked_shell = ""
+
+	# Step 3: Shooting decision — find live shells and fire at Ghost
+	var p_live: float = _live_probability()
+
+	# If we know the current shell:
+	if _peeked_shell == "LIVE":
+		print("[Dealer/Ghost] CONFIRMED LIVE → shoots PLAYER (Ghost)")
+		gsm.dealer_shoot("player")
+		return
+
+	if _peeked_shell == "BLANK":
+		# Self-blank to keep turn (blanks do nothing to Ghost anyway)
+		print("[Dealer/Ghost] CONFIRMED BLANK → shoots SELF")
+		gsm.dealer_shoot("dealer")
+		return
+
+	# Probability-based: be aggressive
+	if p_live > 0.3:
+		print("[Dealer/Ghost] p_live=%.2f → shoots PLAYER (Ghost)" % p_live)
+		gsm.dealer_shoot("player")
+	else:
+		# Self-shoot to cycle through blanks faster
+		print("[Dealer/Ghost] p_live=%.2f → shoots SELF (cycling blanks)" % p_live)
+		gsm.dealer_shoot("dealer")
+
+
+func _consider_plus4_card() -> void:
+	if not item_system:
+		return
+	var items: Array = item_system.dealer_items.duplicate()
+	for item in items:
+		if item.item_name != "+4 Card":
+			continue
+
+		# Strategy: use +4 Card when a live shell is near the front
+		# (positions 0-1) and the Ghost could access it on their next turn.
+		# This buries the live shell deeper.
+		var front_shell: String = shotgun.peek_next()
+		var shells_remaining: int = shotgun.remaining_count()
+
+		# Don't use if only 1-2 shells left (would overflow discard too many)
+		if shells_remaining <= 2:
+			continue
+
+		# Check if using the card would discard a live shell from the back
+		var would_discard_live: bool = false
+		if shells_remaining + 4 > 8:
+			var overflow_count: int = (shells_remaining + 4) - 8
+			# Check the last `overflow_count` shells for lives
+			for i in range(shells_remaining - overflow_count, shells_remaining):
+				if i >= 0 and i < shotgun.shells.size() and shotgun.shells[i] == "LIVE":
+					would_discard_live = true
+					break
+
+		# Use +4 Card if live is at front AND we won't lose a live shell
+		if front_shell == "LIVE" and not would_discard_live:
+			print("[Dealer/Ghost] Using +4 Card to bury live shell at front")
+			item_system.dealer_use_item(item)
+			return
 
 
 # ── Item usage (Rounds 2 & 3) ─────────────────────────────────────────

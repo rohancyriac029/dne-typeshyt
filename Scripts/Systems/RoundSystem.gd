@@ -52,6 +52,35 @@ func on_dealer_killed() -> void:
 		gsm.change_state(gsm.State.ROUND_START)
 
 
+## Loads the Ghost Round (Round 4). Fixed 8 shells, max 2 live, 1 HP player, ∞ dealer.
+func load_ghost_round() -> void:
+	is_reloading = false
+	var live_count: int = randi_range(1, 2)
+	var blank_count: int = 8 - live_count
+	print("[Round] Loading Ghost Round 4: %d LIVE + %d BLANK" % [live_count, blank_count])
+
+	# Ghost has 1 "Glowing Orb" HP; Dealer has ∞ (999)
+	player.reset(1, 0)
+	dealer.reset(999, 0)
+
+	shotgun.load_shells(live_count, blank_count)
+
+	# Distribute ghost-specific items (1x +4 Card each)
+	if item_system and item_system.has_method("distribute_ghost_items"):
+		item_system.distribute_ghost_items()
+
+	gsm.change_state(gsm.State.LOAD_SHELLS)
+
+
+## Starts Resurrected Round 3 after winning Round 4.
+func start_resurrected_round3() -> void:
+	print("[Round] Starting Resurrected Round 3")
+	current_round = 2  # Round 3 is index 2
+	gsm.is_ghost_round = false
+	gsm.is_resurrected_round3 = true
+	load_round()  # Uses existing Round 3 config (4+2 HP, 4 items)
+
+
 func _get_config(idx: int) -> Dictionary:
 	match idx:
 		0: return {

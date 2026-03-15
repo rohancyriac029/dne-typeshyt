@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cuvcbyw6djnbb" path="res://Assets/Objects/lens Background Removed.png" id="22_bpy1e"]
 [ext_resource type="Texture2D" uid="uid://ckrghosak5lk6" path="res://Assets/Objects/hsaw Background Removed.png" id="23_p5ymy"]
 [ext_resource type="Texture2D" uid="uid://dvhksrx17t647" path="res://Assets/Objects/cuffs Background Removed.png" id="24_3va76"]
+[ext_resource type="Texture2D" uid="uid://dhk1xfaglaqns" path="res://Assets/Objects/4card Background Removed.png" id="25_wmecs"]
 [ext_resource type="FontFile" uid="uid://dotxwoy5lnfrb" path="res://Assets/UI/Creepster-Regular.ttf" id="creepster_font"]
 [ext_resource type="Script" uid="uid://dwfrcqhxhp0qm" path="res://Scripts/Systems/ItemSystem.gd" id="item_system_script"]
 [ext_resource type="Texture2D" uid="uid://b2551if2xaibv" path="res://Assets/Objects/shell_trey.jpeg" id="shell_trey"]
@@ -351,3 +352,8 @@ texture = ExtResource("23_p5ymy")
 position = Vector2(947, 239.00002)
 scale = Vector2(0.08935539, 0.10522466)
 texture = ExtResource("24_3va76")
+
+[node name="4CardBackgroundRemoved" type="Sprite2D" parent="." unique_id=447196996]
+position = Vector2(919.0001, 564)
+scale = Vector2(0.052734468, 0.04964194)
+texture = ExtResource("25_wmecs")

@@ -27,6 +27,12 @@ var hp_texture          = preload("res://Assets/UI/hp_icon.png")
 var live_shell_texture  = preload("res://Assets/Objects/live_shell_icon.png")
 var blank_shell_texture = preload("res://Assets/Objects/blank_shell_icon.png")
 
+# Ghost Round 4 textures
+var _orb_texture: Texture2D = null
+var _infinite_texture: Texture2D = null
+var _ghost_whisper_texture: Texture2D = null
+var _orb_glow_tween: Tween = null
+
 # Item textures mapped by item_name
 var _item_textures: Dictionary = {}
 
@@ -49,6 +55,14 @@ func setup(p_gsm: Node, p_shotgun: Node, p_controller: Node) -> void:
 	_set_buttons_visible(false)
 	intro_panel.modulate.a = 0.0
 
+	# Preload ghost textures
+	if ResourceLoader.exists("res://Assets/UI/orb Background Removed.png"):
+		_orb_texture = load("res://Assets/UI/orb Background Removed.png")
+	if ResourceLoader.exists("res://Assets/UI/infinite_symbol Background Removed.png"):
+		_infinite_texture = load("res://Assets/UI/infinite_symbol Background Removed.png")
+	if ResourceLoader.exists("res://Assets/Characters/ghost_whisperer.png"):
+		_ghost_whisper_texture = load("res://Assets/Characters/ghost_whisperer.png")
+
 
 func setup_item_system(p_item_system: Node) -> void:
 	item_system = p_item_system
@@ -61,7 +75,19 @@ func setup_item_system(p_item_system: Node) -> void:
 func show_intro_sequence(title: String, live: int, blank: int) -> void:
 	shell_container.hide()
 
-	round_label.text = title
+	# Ghost round: special intro theming
+	var is_ghost: bool = gsm and gsm.is_ghost_round
+	if is_ghost:
+		round_label.text = "THE OTHER SIDE"
+		if round_label.has_theme_color_override("font_color"):
+			round_label.add_theme_color_override("font_color", Color(0.4, 0.8, 1.0))
+		intro_panel.color = Color(0.02, 0.02, 0.08, 0.92)
+	else:
+		round_label.text = title
+		if round_label.has_theme_color_override("font_color"):
+			round_label.add_theme_color_override("font_color", Color(0.8, 0.1, 0.1))
+		intro_panel.color = Color(0.05, 0, 0, 0.85)
+
 	if count_label:
 		count_label.text = str(live) + " LIVE, " + str(blank) + " BLANK"
 
@@ -80,6 +106,10 @@ func show_intro_sequence(title: String, live: int, blank: int) -> void:
 	for child in slots_overlay.get_children():
 		child.queue_free()
 
+	# Reset intro panel color for next round
+	if is_ghost:
+		intro_panel.color = Color(0.05, 0, 0, 0.85)
+
 
 # ── HP display ────────────────────────────────────────────────────────
 
@@ -96,13 +126,19 @@ func connect_dealer(dealer: Node) -> void:
 
 
 func _on_player_hp_changed(current: int, _maximum: int, regular: int = -1, faded: int = 0) -> void:
-	_update_hp_container(player_hp_container, regular if regular >= 0 else current, faded)
+	if gsm and gsm.is_ghost_round:
+		_update_ghost_player_hp(current)
+	else:
+		_update_hp_container(player_hp_container, regular if regular >= 0 else current, faded)
 	_animate_container(player_hp_container)
 	_update_shell_counter()
 
 
 func _on_dealer_hp_changed(current: int, _maximum: int, regular: int = -1, faded: int = 0) -> void:
-	_update_hp_container(dealer_hp_container, regular if regular >= 0 else current, faded)
+	if gsm and gsm.is_ghost_round:
+		_update_ghost_dealer_hp()
+	else:
+		_update_hp_container(dealer_hp_container, regular if regular >= 0 else current, faded)
 	_animate_container(dealer_hp_container)
 	_update_shell_counter()
 
@@ -319,9 +355,15 @@ func _on_state_changed(new_state) -> void:
 
 	match new_state:
 		gsm.State.PLAYER_TURN:
-			_show_turn_indicator("YOUR TURN", Color(0.2, 0.9, 0.3))
+			if gsm.is_ghost_round:
+				_show_turn_indicator("YOUR TURN", Color(0.4, 0.8, 1.0))  # Ghostly cyan
+			else:
+				_show_turn_indicator("YOUR TURN", Color(0.2, 0.9, 0.3))
 		gsm.State.DEALER_TURN:
-			_show_turn_indicator("DEALER'S TURN", Color(0.9, 0.2, 0.2))
+			if gsm.is_ghost_round:
+				_show_turn_indicator("DEALER'S TURN", Color(0.7, 0.3, 0.3))  # Muted red
+			else:
+				_show_turn_indicator("DEALER'S TURN", Color(0.9, 0.2, 0.2))
 		gsm.State.RESOLVE_SHOT:
 			_hide_turn_indicator()
 		gsm.State.WIN:
@@ -330,8 +372,16 @@ func _on_state_changed(new_state) -> void:
 			get_tree().change_scene_to_file("res://Scenes/WinScreen.tscn")
 		gsm.State.LOSE:
 			_hide_turn_indicator()
+			# Don't switch to LoseScreen if GSM is about to transition to ghost round
+			# (GSM handles the transition in _on_state_entered)
+			if gsm.round_system.current_round == 2 and not gsm.is_ghost_round and not gsm.is_resurrected_round3:
+				return  # GSM will transition to GHOST_ROUND_START
 			await get_tree().process_frame
 			get_tree().change_scene_to_file("res://Scenes/LoseScreen.tscn")
+		gsm.State.GHOST_ROUND_START:
+			_hide_turn_indicator()
+		gsm.State.RESURRECTION:
+			_hide_turn_indicator()
 
 
 func _show_turn_indicator(text: String, color: Color) -> void:
@@ -358,3 +408,176 @@ func _hide_turn_indicator() -> void:
 func _set_buttons_visible(visible_state: bool) -> void:
 	shoot_self_btn.visible   = visible_state
 	shoot_dealer_btn.visible = visible_state
+
+
+# ── Ghost Round 4 HP display ──────────────────────────────────────────
+
+## Player HP in ghost round: single glowing orb with pulsing animation
+func _update_ghost_player_hp(current: int) -> void:
+	for child in player_hp_container.get_children():
+		child.queue_free()
+
+	# Stop any existing orb glow
+	if _orb_glow_tween:
+		_orb_glow_tween.kill()
+		_orb_glow_tween = null
+
+	if current <= 0:
+		return  # Orb is shattered — show nothing
+
+	var tex_rect := TextureRect.new()
+	if _orb_texture:
+		tex_rect.texture = _orb_texture
+	else:
+		tex_rect.texture = hp_texture  # fallback
+	tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	tex_rect.custom_minimum_size = Vector2(32, 32)
+	tex_rect.modulate = Color(0.4, 0.9, 1.0, 1.0)  # Cyan glow
+	player_hp_container.add_child(tex_rect)
+
+	# Pulsing glow animation
+	_orb_glow_tween = get_tree().create_tween().set_loops()
+	_orb_glow_tween.tween_property(tex_rect, "modulate", Color(0.6, 1.0, 1.2, 1.0), 0.8).set_ease(Tween.EASE_IN_OUT)
+	_orb_glow_tween.tween_property(tex_rect, "modulate", Color(0.3, 0.7, 0.9, 0.8), 0.8).set_ease(Tween.EASE_IN_OUT)
+	var scale_tween := get_tree().create_tween().set_loops()
+	scale_tween.tween_property(tex_rect, "custom_minimum_size", Vector2(36, 36), 0.8).set_ease(Tween.EASE_IN_OUT)
+	scale_tween.tween_property(tex_rect, "custom_minimum_size", Vector2(32, 32), 0.8).set_ease(Tween.EASE_IN_OUT)
+
+
+## Dealer HP in ghost round: single ∞ symbol
+func _update_ghost_dealer_hp() -> void:
+	for child in dealer_hp_container.get_children():
+		child.queue_free()
+
+	var tex_rect := TextureRect.new()
+	if _infinite_texture:
+		tex_rect.texture = _infinite_texture
+	else:
+		# Fallback: use a label
+		var lbl := Label.new()
+		lbl.text = "∞"
+		lbl.add_theme_font_size_override("font_size", 28)
+		lbl.modulate = Color(0.9, 0.3, 0.3)
+		dealer_hp_container.add_child(lbl)
+		return
+	tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	tex_rect.custom_minimum_size = Vector2(36, 28)
+	tex_rect.modulate = Color(0.9, 0.3, 0.3, 1.0)  # Red tint
+	dealer_hp_container.add_child(tex_rect)
+
+
+# ── Resurrection animation ────────────────────────────────────────────
+
+func play_resurrection_animation() -> void:
+	# Create a full-screen overlay for the animation
+	var overlay := ColorRect.new()
+	overlay.anchors_preset = Control.PRESET_FULL_RECT
+	overlay.color = Color(1, 1, 1, 0)
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	overlay.z_index = 100
+	get_node("UI").add_child(overlay)
+
+	# Create the "YOU HAVE RETURNED" label
+	var rez_label := Label.new()
+	rez_label.text = "YOU HAVE RETURNED"
+	rez_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rez_label.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	rez_label.anchors_preset = Control.PRESET_FULL_RECT
+	rez_label.add_theme_font_size_override("font_size", 52)
+	if ResourceLoader.exists("res://Assets/UI/Creepster-Regular.ttf"):
+		rez_label.add_theme_font_override("font", load("res://Assets/UI/Creepster-Regular.ttf"))
+	rez_label.add_theme_color_override("font_color", Color(0.3, 0.9, 1.0))
+	rez_label.add_theme_color_override("font_shadow_color", Color(0, 0.2, 0.3))
+	rez_label.add_theme_constant_override("shadow_offset_x", 3)
+	rez_label.add_theme_constant_override("shadow_offset_y", 3)
+	rez_label.modulate.a = 0.0
+	rez_label.z_index = 101
+	get_node("UI").add_child(rez_label)
+
+	# Phase 1: White flash
+	var flash_tween := get_tree().create_tween()
+	flash_tween.tween_property(overlay, "color:a", 1.0, 0.15)
+	await flash_tween.finished
+	await get_tree().create_timer(0.3).timeout
+
+	# Phase 2: Fade to dark
+	var dark_tween := get_tree().create_tween()
+	dark_tween.tween_property(overlay, "color", Color(0.02, 0.05, 0.08, 1.0), 0.5)
+	await dark_tween.finished
+
+	# Phase 3: Show text
+	var text_tween := get_tree().create_tween()
+	text_tween.tween_property(rez_label, "modulate:a", 1.0, 0.5).set_ease(Tween.EASE_OUT)
+	await text_tween.finished
+	await get_tree().create_timer(2.0).timeout
+
+	# Phase 4: Fade everything out
+	var out_tween := get_tree().create_tween()
+	out_tween.tween_property(overlay, "color:a", 0.0, 0.8)
+	out_tween.parallel().tween_property(rez_label, "modulate:a", 0.0, 0.8)
+	await out_tween.finished
+
+	# Cleanup
+	overlay.queue_free()
+	rez_label.queue_free()
+
+
+# ── Ghost Ally Whisper (Resurrected Round 3) ──────────────────────────
+
+func show_ghost_whisper(shell: String) -> void:
+	if not _ghost_whisper_texture:
+		# Fallback: just use the feedback label
+		var text := "👻 Next: " + ("🔴 LIVE" if shell == "LIVE" else "⚪ BLANK")
+		_flash_feedback(text, Color(0.4, 0.8, 1.0))
+		return
+
+	# Create whisper visual overlay
+	var whisper_container := Control.new()
+	whisper_container.anchors_preset = Control.PRESET_FULL_RECT
+	whisper_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	whisper_container.z_index = 50
+	get_node("UI").add_child(whisper_container)
+
+	# Ghost sprite
+	var ghost_tex := TextureRect.new()
+	ghost_tex.texture = _ghost_whisper_texture
+	ghost_tex.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	ghost_tex.custom_minimum_size = Vector2(60, 80)
+	ghost_tex.position = Vector2(100, 50)
+	ghost_tex.modulate = Color(0.5, 0.8, 1.0, 0.0)
+	whisper_container.add_child(ghost_tex)
+
+	# Shell icon next to ghost
+	var shell_icon := TextureRect.new()
+	shell_icon.texture = live_shell_texture if shell == "LIVE" else blank_shell_texture
+	shell_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	shell_icon.custom_minimum_size = Vector2(20, 20)
+	shell_icon.position = Vector2(170, 80)
+	shell_icon.modulate = Color(1, 1, 1, 0)
+	whisper_container.add_child(shell_icon)
+
+	# "NEXT:" label
+	var next_label := Label.new()
+	next_label.text = "NEXT"
+	next_label.add_theme_font_size_override("font_size", 16)
+	next_label.add_theme_color_override("font_color", Color(0.4, 0.8, 1.0))
+	next_label.position = Vector2(160, 60)
+	next_label.modulate.a = 0.0
+	whisper_container.add_child(next_label)
+
+	# Fade in
+	var fade_in := get_tree().create_tween()
+	fade_in.tween_property(ghost_tex, "modulate:a", 0.6, 0.4).set_ease(Tween.EASE_OUT)
+	fade_in.parallel().tween_property(shell_icon, "modulate:a", 1.0, 0.4)
+	fade_in.parallel().tween_property(next_label, "modulate:a", 0.8, 0.4)
+	await fade_in.finished
+
+	# Hold for 2 seconds
+	await get_tree().create_timer(2.0).timeout
+
+	# Fade out
+	var fade_out := get_tree().create_tween()
+	fade_out.tween_property(whisper_container, "modulate:a", 0.0, 0.5)
+	await fade_out.finished
+
+	whisper_container.queue_free()

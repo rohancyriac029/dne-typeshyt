@@ -1,20 +1,24 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1773507223
+::res://::1773550311
 buckshot_mvp_assets_layout.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
 buckshot_mvp_roadmap.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
 round1-3.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
+ROUND4_AND_RESURRECTION.md::TextFile::-1::1773550311::0::1::::<><><>0<>0<><>::
 TASK_LIST.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
 ::res://Assets/::1773502890
-::res://Assets/Characters/::1773502890
+::res://Assets/Characters/::1773550984
 dealer_sprite.jpeg::CompressedTexture2D::3441461682164948891::1773502890::1773502890::1::::<><><>0<>0<>c0b783f9c82edacc16a4080cb4cbd8db<>res://.godot/imported/dealer_sprite.jpeg-5652d8f5a3597bbd75aa25e5db5570ac.ctex::
 dealer_sprite.png::CompressedTexture2D::4375007820408509256::1773502890::1773502890::1::::<><><>0<>0<>d31f847c973efd029c3589d394a830d3<>res://.godot/imported/dealer_sprite.png-10c853bb677fbc1b1e675f9ae95bb3ba.ctex::
+ghost_hands Background Removed.png::CompressedTexture2D::4125954408130066308::1773550932::1773550933::1::::<><><>0<>0<>8e65ef9f0cbee43795c25a9ac0990b86<>res://.godot/imported/ghost_hands Background Removed.png-d497f141ec4a675c5d2386f559696b19.ctex::
+ghost_whisperer.png::CompressedTexture2D::46413325974499168::1773550984::1773550984::1::::<><><>0<>0<>a1b0ebb2794f45da856689c365be593a<>res://.godot/imported/ghost_whisperer.png-996a1641384d2f7ba2075fac6a2bf347.ctex::
 player_hands.png::CompressedTexture2D::7241938550005559301::1773502890::1773502890::1::::<><><>0<>0<>797b8051803c346000748a272e7b9af5<>res://.godot/imported/player_hands.png-70c30cd26d58895fd3ee3522640e7fc4.ctex::
 ::res://Assets/Effects/::1773502890
 blank_click_icon.png::CompressedTexture2D::8555464241080204480::1773502890::1773502890::1::::<><><>0<>0<>2964bcf2cc75c4b880f476b79028531d<>res://.godot/imported/blank_click_icon.png-03c8befa2239b298a5e83f8815b4f29a.ctex::
 muzzle_flash.png::CompressedTexture2D::1865072896899498542::1773502890::1773502890::1::::<><><>0<>0<>aa7ec3b7441bc6b5b00d59580dbb2cc5<>res://.godot/imported/muzzle_flash.png-ba069cf3422ba2cefddfdddb21d38cda.ctex::
 ::res://Assets/Environment/::1773503250
 main.png::CompressedTexture2D::1369890956008233192::1773503113::1773503114::1::::<><><>0<>0<>86c0aaa35e593baa82cb9a94a6cb6ebc<>res://.godot/imported/main.png-42339574f1b9ea90d9a9623bafc7338d.ctex::
-::res://Assets/Objects/::1773507261
+::res://Assets/Objects/::1773550723
+4card Background Removed.png::CompressedTexture2D::7672847712061950204::1773550723::1773550723::1::::<><><>0<>0<>daa11b28f48c9f47386d752fa1d90ab3<>res://.godot/imported/4card Background Removed.png-2d47a171f47b96a44f5cc8e3d731a098.ctex::
 blank_shell_icon.png::CompressedTexture2D::3397316815017758531::1773502890::1773502890::1::::<><><>0<>0<>35def369dd35d09350e6040314cd1b23<>res://.godot/imported/blank_shell_icon.png-f1fb6461819ab0241abc0e55a8ba725f.ctex::
 can Background Removed.png::CompressedTexture2D::6856188486155311577::1773505079::1773505080::1::::<><><>0<>0<>a3037aa2ac9d07f249ef19d47b0d633a<>res://.godot/imported/can Background Removed.png-83cca03ef6fcfec757c58ed6c41f5787.ctex::
 cig Background Removed.png::CompressedTexture2D::347390698384974641::1773505377::1773505377::1::::<><><>0<>0<>3751ce5070b73701a41a2020c66b78df<>res://.godot/imported/cig Background Removed.png-3b85e05f303fe467e04452392b3e480e.ctex::
@@ -29,15 +33,17 @@ magnifying_glass_sprite.png::CompressedTexture2D::150088488071422715::1773502890
 shell_trey.jpeg::CompressedTexture2D::4345319164134614631::1773502890::1773502890::1::::<><><>0<>0<>e16449129f63725740a77ea03861e5ac<>res://.godot/imported/shell_trey.jpeg-cbb3fbef569c34e750bef5687e39e673.ctex::
 shotgun_sprite.png::CompressedTexture2D::2510578556667469951::1773503229::1773503277::1::::<><><>0<>0<>2f6e303e39cb585b4be97f0a083b32ff<>res://.godot/imported/shotgun_sprite.png-bb21987306374e23ee88035ca53c6fab.ctex::
 soda_sprite.png::CompressedTexture2D::7103215279113159961::1773502890::1773502890::1::::<><><>0<>0<>d43affe5f72a69201259bafa68b213a2<>res://.godot/imported/soda_sprite.png-0a2ed28f269905ddd41428efb2404deb.ctex::
-::res://Assets/UI/::1773502890
+::res://Assets/UI/::1773550970
 Creepster-Regular.ttf::FontFile::8182565591418916399::1773502890::1773502890::1::::<><><>0<>0<>d1dd92151af9933eaa559b0dcbf9e3ca<>res://.godot/imported/Creepster-Regular.ttf-ef48579bf3664d887d5081ac8a77a57d.fontdata::
 hp_icon.png::CompressedTexture2D::8436326412561867732::1773502890::1773502890::1::::<><><>0<>0<>9933579572cc4162c8e77dcf21afb7de<>res://.godot/imported/hp_icon.png-44426f39742a10f0132624b31986ebfd.ctex::
+infinite_symbol Background Removed.png::CompressedTexture2D::3836293092009623284::1773550970::1773550970::1::::<><><>0<>0<>680fb2c43cd91c77256aff6620d29511<>res://.godot/imported/infinite_symbol Background Removed.png-71a3ec43dfd088f06fb9c33a69acf3f7.ctex::
+orb Background Removed.png::CompressedTexture2D::2591369429256100474::1773550965::1773550966::1::::<><><>0<>0<>1eac700f950f650f7ee4b0d6aca12e63<>res://.godot/imported/orb Background Removed.png-0693283f751c22c30482a9d246874f9f.ctex::
 shell_counter_ui.png::CompressedTexture2D::5556065041667022015::1773502890::1773502890::1::::<><><>0<>0<>1ba123cc48742c2b9f1448332a987cf6<>res://.godot/imported/shell_counter_ui.png-7e2b50696b7dbb81a9271d4b6209d518.ctex::
 shoot_dealer_button.png::CompressedTexture2D::1942691802745385994::1773502890::1773502890::1::::<><><>0<>0<>33a262cdb32806380f94281839c9b4aa<>res://.godot/imported/shoot_dealer_button.png-f3887bf44117cf8efbb517e04f4480a8.ctex::
 shoot_self_button.png::CompressedTexture2D::1542833200901496000::1773502890::1773502890::1::::<><><>0<>0<>53270a6024a1aa8d5efcda09390b7b9b<>res://.godot/imported/shoot_self_button.png-65c0093c4a8cec71896b83b2572cb7f8.ctex::
-::res://Scenes/::1773506825
+::res://Scenes/::1773550902
 LoseScreen.tscn::PackedScene::-1::1773502890::0::1::::<><><>0<>0<><>::res://Scripts/UI/LoseScreen.gd
-MainScene.tscn::PackedScene::4170776268033164578::1773506825::0::1::::<><><>0<>0<><>::uid://bn0yrlpqjox4d::::res://Scripts/MainScene.gd<>uid://ckg37wso5tued::::res://Scripts/Systems/ShotgunSystem.gd<>uid://dpum4bgtxgt1t::::res://Scripts/Systems/RoundSystem.gd<>uid://dfi8po5fyju3o::::res://Scripts/Systems/HealthComponent.gd<>uid://bqmishcydqopm::::res://Scripts/Systems/PlayerController.gd<>uid://r62f8htok35k::::res://Scripts/Systems/DealerTurnLogic.gd<>uid://b508ys7eeiodt::::res://Scripts/UI/UIManager.gd<>uid://v8micpc8rbxw::::res://Assets/UI/shoot_self_button.png<>uid://2xb351x643vy::::res://Assets/UI/shoot_dealer_button.png<>uid://cxose71ao36v2::::res://Scripts/vignette.gdshader<>uid://c5ld18wv3r6v4::::res://Assets/Objects/cig_sprite.png<>uid://cex62nyxixff::::res://Assets/Objects/magnifying_glass_sprite.png<>uid://c8g36hblxga70::::res://Assets/Objects/soda_sprite.png<>uid://trt5y57vje7a::::res://Assets/Environment/main.png<>uid://bb1e4krfktjjr::::res://Assets/Objects/shotgun_sprite.png<>uid://c4xgomuo4j5aj::::res://Assets/Objects/can Background Removed.png<>uid://dpdeqi5lbowy7::::res://Assets/Objects/handsaw_sprite.png<>uid://e7jqd88nfs14::::res://Assets/Objects/cig Background Removed.png<>uid://cuvcbyw6djnbb::::res://Assets/Objects/lens Background Removed.png<>uid://ckrghosak5lk6::::res://Assets/Objects/hsaw Background Removed.png<>uid://dotxwoy5lnfrb::::res://Assets/UI/Creepster-Regular.ttf<>uid://dwfrcqhxhp0qm::::res://Scripts/Systems/ItemSystem.gd<>uid://b2551if2xaibv::::res://Assets/Objects/shell_trey.jpeg
+MainScene.tscn::PackedScene::4170776268033164578::1773550902::0::1::::<><><>0<>0<><>::uid://bn0yrlpqjox4d::::res://Scripts/MainScene.gd<>uid://ckg37wso5tued::::res://Scripts/Systems/ShotgunSystem.gd<>uid://dpum4bgtxgt1t::::res://Scripts/Systems/RoundSystem.gd<>uid://dfi8po5fyju3o::::res://Scripts/Systems/HealthComponent.gd<>uid://bqmishcydqopm::::res://Scripts/Systems/PlayerController.gd<>uid://r62f8htok35k::::res://Scripts/Systems/DealerTurnLogic.gd<>uid://b508ys7eeiodt::::res://Scripts/UI/UIManager.gd<>uid://v8micpc8rbxw::::res://Assets/UI/shoot_self_button.png<>uid://2xb351x643vy::::res://Assets/UI/shoot_dealer_button.png<>uid://cxose71ao36v2::::res://Scripts/vignette.gdshader<>uid://c5ld18wv3r6v4::::res://Assets/Objects/cig_sprite.png<>uid://cex62nyxixff::::res://Assets/Objects/magnifying_glass_sprite.png<>uid://c8g36hblxga70::::res://Assets/Objects/soda_sprite.png<>uid://trt5y57vje7a::::res://Assets/Environment/main.png<>uid://bb1e4krfktjjr::::res://Assets/Objects/shotgun_sprite.png<>uid://c4xgomuo4j5aj::::res://Assets/Objects/can Background Removed.png<>uid://dpdeqi5lbowy7::::res://Assets/Objects/handsaw_sprite.png<>uid://e7jqd88nfs14::::res://Assets/Objects/cig Background Removed.png<>uid://cuvcbyw6djnbb::::res://Assets/Objects/lens Background Removed.png<>uid://ckrghosak5lk6::::res://Assets/Objects/hsaw Background Removed.png<>uid://dvhksrx17t647::::res://Assets/Objects/cuffs Background Removed.png<>uid://dhk1xfaglaqns::::res://Assets/Objects/4card Background Removed.png<>uid://dotxwoy5lnfrb::::res://Assets/UI/Creepster-Regular.ttf<>uid://dwfrcqhxhp0qm::::res://Scripts/Systems/ItemSystem.gd<>uid://b2551if2xaibv::::res://Assets/Objects/shell_trey.jpeg
 WinScreen.tscn::PackedScene::-1::1773502890::0::1::::<><><>0<>0<><>::res://Scripts/UI/WinScreen.gd
 ::res://Scripts/::1773502890
 MainScene.gd::GDScript::3351973262830284281::1773502890::0::1::::<>Node2D<><>0<>0<><>::
