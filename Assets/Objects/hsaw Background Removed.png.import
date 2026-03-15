@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceok2ym3h4mn6"
-path="res://.godot/imported/table_background.png-4c7a6aab2042040cbb42ac62da26c758.ctex"
+uid="uid://ckrghosak5lk6"
+path="res://.godot/imported/hsaw Background Removed.png-0457b7de70a61aec6370a12a18bcb5f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Environment/table_background.png"
-dest_files=["res://.godot/imported/table_background.png-4c7a6aab2042040cbb42ac62da26c758.ctex"]
+source_file="res://Assets/Objects/hsaw Background Removed.png"
+dest_files=["res://.godot/imported/hsaw Background Removed.png-0457b7de70a61aec6370a12a18bcb5f5.ctex"]
 
 [params]
 

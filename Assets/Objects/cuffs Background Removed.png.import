@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5566p67soeux"
-path="res://.godot/imported/shotgun_sprite2.png-d1b0f66a2f70325e4a6b6fc54d8b7789.ctex"
+uid="uid://dvhksrx17t647"
+path="res://.godot/imported/cuffs Background Removed.png-9f3d118dc2f1490bcd3e8c91c9a486af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Objects/shotgun_sprite2.png"
-dest_files=["res://.godot/imported/shotgun_sprite2.png-d1b0f66a2f70325e4a6b6fc54d8b7789.ctex"]
+source_file="res://Assets/Objects/cuffs Background Removed.png"
+dest_files=["res://.godot/imported/cuffs Background Removed.png-9f3d118dc2f1490bcd3e8c91c9a486af.ctex"]
 
 [params]
 

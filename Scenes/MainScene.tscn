@@ -1,10 +1,6 @@
 [gd_scene format=3 uid="uid://b0omctuk26m5o"]
 
 [ext_resource type="Script" uid="uid://bn0yrlpqjox4d" path="res://Scripts/MainScene.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://ceok2ym3h4mn6" path="res://Assets/Environment/table_background.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://b3lj0e8po36si" path="res://Assets/Characters/dealer_sprite.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://dlrvyeyoin1ae" path="res://Assets/Objects/shotgun_sprite.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://dbgbw1mdsb45n" path="res://Assets/Characters/player_hands.png" id="5"]
 [ext_resource type="Script" uid="uid://ckg37wso5tued" path="res://Scripts/Systems/ShotgunSystem.gd" id="6"]
 [ext_resource type="Script" uid="uid://dpum4bgtxgt1t" path="res://Scripts/Systems/RoundSystem.gd" id="7"]
 [ext_resource type="Script" uid="uid://dfi8po5fyju3o" path="res://Scripts/Systems/HealthComponent.gd" id="8"]
@@ -17,7 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://c5ld18wv3r6v4" path="res://Assets/Objects/cig_sprite.png" id="17_c1ier"]
 [ext_resource type="Texture2D" uid="uid://cex62nyxixff" path="res://Assets/Objects/magnifying_glass_sprite.png" id="18_gyaec"]
 [ext_resource type="Texture2D" uid="uid://c8g36hblxga70" path="res://Assets/Objects/soda_sprite.png" id="19_bpy1e"]
+[ext_resource type="Texture2D" uid="uid://trt5y57vje7a" path="res://Assets/Environment/main.png" id="19_i0j58"]
+[ext_resource type="Texture2D" uid="uid://bb1e4krfktjjr" path="res://Assets/Objects/shotgun_sprite.png" id="20_c1ier"]
+[ext_resource type="Texture2D" uid="uid://c4xgomuo4j5aj" path="res://Assets/Objects/can Background Removed.png" id="20_gyaec"]
 [ext_resource type="Texture2D" uid="uid://dpdeqi5lbowy7" path="res://Assets/Objects/handsaw_sprite.png" id="20_p5ymy"]
+[ext_resource type="Texture2D" uid="uid://e7jqd88nfs14" path="res://Assets/Objects/cig Background Removed.png" id="21_gyaec"]
+[ext_resource type="Texture2D" uid="uid://cuvcbyw6djnbb" path="res://Assets/Objects/lens Background Removed.png" id="22_bpy1e"]
+[ext_resource type="Texture2D" uid="uid://ckrghosak5lk6" path="res://Assets/Objects/hsaw Background Removed.png" id="23_p5ymy"]
+[ext_resource type="Texture2D" uid="uid://dvhksrx17t647" path="res://Assets/Objects/cuffs Background Removed.png" id="24_3va76"]
 [ext_resource type="FontFile" uid="uid://dotxwoy5lnfrb" path="res://Assets/UI/Creepster-Regular.ttf" id="creepster_font"]
 [ext_resource type="Script" uid="uid://dwfrcqhxhp0qm" path="res://Scripts/Systems/ItemSystem.gd" id="item_system_script"]
 [ext_resource type="Texture2D" uid="uid://b2551if2xaibv" path="res://Assets/Objects/shell_trey.jpeg" id="shell_trey"]
@@ -30,29 +33,14 @@ shader_parameter/softness = 0.45
 
 [node name="MainScene" type="Node2D" unique_id=903834437]
 script = ExtResource("1")
-
-[node name="TableSprite" type="Sprite2D" parent="." unique_id=1793107891]
-position = Vector2(580, 392)
-scale = Vector2(1.0756732, 1)
-texture = ExtResource("2")
-
-[node name="DealerSprite" type="Sprite2D" parent="." unique_id=1750340932]
-z_index = 1
-position = Vector2(585, 90)
-scale = Vector2(1.0927644, 0.80396485)
-texture = ExtResource("3")
+metadata/_edit_horizontal_guides_ = [602.0, 203.0]
+metadata/_edit_vertical_guides_ = [567.0]
 
 [node name="ShotgunSprite" type="Sprite2D" parent="." unique_id=855159093]
 z_index = 4
-position = Vector2(574.99994, 374.00003)
-scale = Vector2(0.40296817, 0.34306666)
-texture = ExtResource("4")
-
-[node name="PlayerHandsSprite" type="Sprite2D" parent="." unique_id=1852950517]
-z_index = 3
-position = Vector2(579, 590)
-scale = Vector2(0.9426494, 1)
-texture = ExtResource("5")
+position = Vector2(568, 395.5)
+scale = Vector2(1.0562501, 1.229885)
+texture = ExtResource("20_c1ier")
 
 [node name="ShotgunSystem" type="Node" parent="." unique_id=180260126]
 script = ExtResource("6")
@@ -83,9 +71,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 7.0
-offset_top = 5.0
+offset_top = -8.0
 offset_right = 7.0
-offset_bottom = 5.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.05, 0, 0, 0.85)
@@ -191,9 +179,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
-offset_top = -22.0
+offset_top = -71.0
 offset_right = 1.0
-offset_bottom = 129.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -203,10 +191,10 @@ layout_mode = 3
 anchor_top = -0.279
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 22.0
-offset_top = 201.792
-offset_right = -28.0
-offset_bottom = 175.0
+offset_left = 27.0
+offset_top = 175.792
+offset_right = -23.0
+offset_bottom = 149.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -237,20 +225,20 @@ rotation = 1.5707964
 
 [node name="ShootSelfButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=238123634]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 417.0
-offset_right = 593.0
-offset_bottom = 591.0
+offset_left = 427.0
+offset_top = 555.0
+offset_right = 908.0
+offset_bottom = 729.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("12")
 stretch_mode = 0
 
 [node name="ShootDealerButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=1630559196]
 layout_mode = 0
-offset_left = 771.0
-offset_top = 413.0
-offset_right = 1270.0
-offset_bottom = 607.0
+offset_left = 427.0
+offset_top = 177.0
+offset_right = 926.0
+offset_bottom = 371.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("13")
 stretch_mode = 0
@@ -311,24 +299,55 @@ theme_override_font_sizes/font_size = 48
 horizontal_alignment = 2
 
 [node name="CigSprite" type="Sprite2D" parent="." unique_id=1644550220]
-position = Vector2(1089, 228.00003)
+position = Vector2(1416, 667)
 scale = Vector2(0.10959168, 0.08837891)
 texture = ExtResource("17_c1ier")
 
 [node name="MagnifyingGlassSprite" type="Sprite2D" parent="." unique_id=208509020]
-position = Vector2(985, 234)
+position = Vector2(1201, 739)
 scale = Vector2(0.12646484, 0.1279297)
 texture = ExtResource("18_gyaec")
 
 [node name="SodaSprite" type="Sprite2D" parent="." unique_id=1283728560]
 top_level = true
 z_index = 3
-position = Vector2(53, 586.00006)
+position = Vector2(70, 831)
 scale = Vector2(0.0948355, 0.07714841)
 texture = ExtResource("19_bpy1e")
 
 [node name="HandsawSprite" type="Sprite2D" parent="." unique_id=1351567180]
 z_index = 3
-position = Vector2(142, 591)
+position = Vector2(189, 846)
 scale = Vector2(0.06835938, 0.066406265)
 texture = ExtResource("20_p5ymy")
+
+[node name="Main" type="Sprite2D" parent="." unique_id=31606054]
+position = Vector2(574, 321)
+scale = Vector2(0.7454427, 0.6328125)
+texture = ExtResource("19_i0j58")
+
+[node name="CanBackgroundRemoved" type="Sprite2D" parent="." unique_id=1689132163]
+position = Vector2(1060, 560.00006)
+scale = Vector2(0.08276366, 0.09130857)
+texture = ExtResource("20_gyaec")
+
+[node name="CigBackgroundRemoved" type="Sprite2D" parent="." unique_id=1687465374]
+position = Vector2(988, 567)
+scale = Vector2(0.102050826, 0.10319013)
+texture = ExtResource("21_gyaec")
+
+[node name="LensBackgroundRemoved" type="Sprite2D" parent="." unique_id=549434225]
+position = Vector2(1083, 232)
+scale = Vector2(0.0732422, 0.08007811)
+texture = ExtResource("22_bpy1e")
+
+[node name="HsawBackgroundRemoved" type="Sprite2D" parent="." unique_id=1623307371]
+position = Vector2(1027, 230.00002)
+rotation = -1.5707964
+scale = Vector2(0.09326172, 0.10221347)
+texture = ExtResource("23_p5ymy")
+
+[node name="CuffsBackgroundRemoved" type="Sprite2D" parent="." unique_id=1347020934]
+position = Vector2(947, 239.00002)
+scale = Vector2(0.08935539, 0.10522466)
+texture = ExtResource("24_3va76")
