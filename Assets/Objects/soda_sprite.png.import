@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4xgomuo4j5aj"
-path="res://.godot/imported/can Background Removed.png-83cca03ef6fcfec757c58ed6c41f5787.ctex"
+path="res://.godot/imported/soda_sprite.png-0a2ed28f269905ddd41428efb2404deb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Objects/can Background Removed.png"
-dest_files=["res://.godot/imported/can Background Removed.png-83cca03ef6fcfec757c58ed6c41f5787.ctex"]
+source_file="res://Assets/Objects/soda_sprite.png"
+dest_files=["res://.godot/imported/soda_sprite.png-0a2ed28f269905ddd41428efb2404deb.ctex"]
 
 [params]
 

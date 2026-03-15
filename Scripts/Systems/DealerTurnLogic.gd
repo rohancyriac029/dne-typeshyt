@@ -34,39 +34,65 @@ func take_turn() -> void:
 # ── Ghost Round 4 AI ──────────────────────────────────────────────────
 
 func _ghost_round_turn() -> void:
-	# Step 1: Consider using the +4 Card
-	_consider_plus4_card()
+	var orb_stable: bool = gsm.ghost_orb_stabilized
 
-	# Step 2: Peek if we have a magnifying glass (we won't in ghost round,
-	# but keep it defensive in case future items are added)
+	# Step 1: Consider using the +4 Card (strategy depends on phase)
+	_consider_plus4_card_ghost(orb_stable)
+
+	# Step 2: No magnifying glass in ghost round, but keep defensive
 	_peeked_shell = ""
 
-	# Step 3: Shooting decision — find live shells and fire at Ghost
+	# Step 3: Shooting decision depends on Orb state
 	var p_live: float = _live_probability()
 
-	# If we know the current shell:
-	if _peeked_shell == "LIVE":
-		print("[Dealer/Ghost] CONFIRMED LIVE → shoots PLAYER (Ghost)")
-		gsm.dealer_shoot("player")
-		return
-
-	if _peeked_shell == "BLANK":
-		# Self-blank to keep turn (blanks do nothing to Ghost anyway)
-		print("[Dealer/Ghost] CONFIRMED BLANK → shoots SELF")
-		gsm.dealer_shoot("dealer")
-		return
-
-	# Probability-based: be aggressive
-	if p_live > 0.3:
-		print("[Dealer/Ghost] p_live=%.2f → shoots PLAYER (Ghost)" % p_live)
-		gsm.dealer_shoot("player")
+	if not orb_stable:
+		# ── PHASE 1: Orb unstabilized ─────────────────────────────────
+		# Goal: Fire LIVE at Ghost to kill them. Self-fire blanks to avoid
+		# accidentally charging the Ghost's Orb.
+		if _peeked_shell == "LIVE":
+			print("[Dealer/Ghost P1] CONFIRMED LIVE → shoots PLAYER")
+			gsm.dealer_shoot("player")
+			return
+		if _peeked_shell == "BLANK":
+			# Self-shoot blank → avoids charging Ghost Orb, keeps turn
+			print("[Dealer/Ghost P1] CONFIRMED BLANK → shoots SELF (avoid charging Orb)")
+			gsm.dealer_shoot("dealer")
+			return
+		# Probability: shoot Ghost if likely live, self-shoot otherwise
+		if p_live > 0.33:
+			print("[Dealer/Ghost P1] p_live=%.2f → shoots PLAYER" % p_live)
+			gsm.dealer_shoot("player")
+		else:
+			print("[Dealer/Ghost P1] p_live=%.2f → shoots SELF (safe cycle)" % p_live)
+			gsm.dealer_shoot("dealer")
 	else:
-		# Self-shoot to cycle through blanks faster
-		print("[Dealer/Ghost] p_live=%.2f → shoots SELF (cycling blanks)" % p_live)
-		gsm.dealer_shoot("dealer")
+		# ── PHASE 2/3: Orb stabilized ─────────────────────────────────
+		# Goal: NEVER let a LIVE shell hit the Ghost (= resurrection).
+		# Self-shoot blanks to cycle barrel. Shoot Ghost only with blanks
+		# (but blanks are harmless — just wastes a turn). Best strategy:
+		# always self-shoot to cycle and deny Ghost access to live shells.
+		if _peeked_shell == "LIVE":
+			# Self-shoot LIVE — wastes it harmlessly (dealer has ∞ HP)
+			print("[Dealer/Ghost P2] CONFIRMED LIVE → shoots SELF (deny Ghost)")
+			gsm.dealer_shoot("dealer")
+			return
+		if _peeked_shell == "BLANK":
+			# Self-shoot blank to keep turn and cycle
+			print("[Dealer/Ghost P2] CONFIRMED BLANK → shoots SELF (cycle)")
+			gsm.dealer_shoot("dealer")
+			return
+		# Probability: mostly self-shoot to deny Ghost. Only shoot Ghost
+		# if very confident it's a blank (no risk of accidental resurrection).
+		if p_live > 0.15:
+			print("[Dealer/Ghost P2] p_live=%.2f → shoots SELF (deny live to Ghost)" % p_live)
+			gsm.dealer_shoot("dealer")
+		else:
+			# Very low live probability — safe to self-shoot anyway
+			print("[Dealer/Ghost P2] p_live=%.2f → shoots SELF (cycling)" % p_live)
+			gsm.dealer_shoot("dealer")
 
 
-func _consider_plus4_card() -> void:
+func _consider_plus4_card_ghost(orb_stable: bool) -> void:
 	if not item_system:
 		return
 	var items: Array = item_system.dealer_items.duplicate()
@@ -74,9 +100,6 @@ func _consider_plus4_card() -> void:
 		if item.item_name != "+4 Card":
 			continue
 
-		# Strategy: use +4 Card when a live shell is near the front
-		# (positions 0-1) and the Ghost could access it on their next turn.
-		# This buries the live shell deeper.
 		var front_shell: String = shotgun.peek_next()
 		var shells_remaining: int = shotgun.remaining_count()
 
@@ -88,17 +111,25 @@ func _consider_plus4_card() -> void:
 		var would_discard_live: bool = false
 		if shells_remaining + 4 > 8:
 			var overflow_count: int = (shells_remaining + 4) - 8
-			# Check the last `overflow_count` shells for lives
 			for i in range(shells_remaining - overflow_count, shells_remaining):
 				if i >= 0 and i < shotgun.shells.size() and shotgun.shells[i] == "LIVE":
 					would_discard_live = true
 					break
 
-		# Use +4 Card if live is at front AND we won't lose a live shell
-		if front_shell == "LIVE" and not would_discard_live:
-			print("[Dealer/Ghost] Using +4 Card to bury live shell at front")
-			item_system.dealer_use_item(item)
-			return
+		if not orb_stable:
+			# Phase 1: Use +4 Card if no live shells remain in barrel
+			# (adds 1 live shell to increase chances of killing Ghost)
+			if shotgun.live_count() == 0 and not would_discard_live:
+				print("[Dealer/Ghost P1] No live shells left → using +4 Card to add one")
+				item_system.dealer_use_item(item)
+				return
+		else:
+			# Phase 2/3: Use +4 Card to bury an upcoming live shell,
+			# preventing the Ghost from reaching it on their turn
+			if front_shell == "LIVE" and not would_discard_live:
+				print("[Dealer/Ghost P2] Using +4 Card to bury live shell (deny resurrection)")
+				item_system.dealer_use_item(item)
+				return
 
 
 # ── Item usage (Rounds 2 & 3) ─────────────────────────────────────────

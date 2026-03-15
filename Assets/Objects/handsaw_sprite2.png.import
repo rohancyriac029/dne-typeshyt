@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cex62nyxixff"
-path="res://.godot/imported/magnifying_glass_sprite.png-647aa35ab72e9e734fe01ed803cad231.ctex"
+uid="uid://ckrghosak5lk6"
+path="res://.godot/imported/handsaw_sprite2.png-fdaa54261facaf48deb6ca43ed07331c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Objects/magnifying_glass_sprite.png"
-dest_files=["res://.godot/imported/magnifying_glass_sprite.png-647aa35ab72e9e734fe01ed803cad231.ctex"]
+source_file="res://Assets/Objects/handsaw_sprite2.png"
+dest_files=["res://.godot/imported/handsaw_sprite2.png-fdaa54261facaf48deb6ca43ed07331c.ctex"]
 
 [params]
 

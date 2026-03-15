@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1773558411
+::res://::1773563626
 buckshot_mvp_assets_layout.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
 buckshot_mvp_roadmap.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
 round1-3.md::TextFile::-1::1773502890::0::1::::<><><>0<>0<><>::
@@ -17,22 +17,22 @@ blank_click_icon.png::CompressedTexture2D::8555464241080204480::1773502890::1773
 muzzle_flash.png::CompressedTexture2D::1865072896899498542::1773502890::1773502890::1::::<><><>0<>0<>aa7ec3b7441bc6b5b00d59580dbb2cc5<>res://.godot/imported/muzzle_flash.png-ba069cf3422ba2cefddfdddb21d38cda.ctex::
 ::res://Assets/Environment/::1773503250
 main.png::CompressedTexture2D::1369890956008233192::1773503113::1773503114::1::::<><><>0<>0<>86c0aaa35e593baa82cb9a94a6cb6ebc<>res://.godot/imported/main.png-42339574f1b9ea90d9a9623bafc7338d.ctex::
-::res://Assets/Objects/::1773558411
+::res://Assets/Objects/::1773563625
 4card Background Removed.png::CompressedTexture2D::7672847712061950204::1773550723::1773550723::1::::<><><>0<>0<>daa11b28f48c9f47386d752fa1d90ab3<>res://.godot/imported/4card Background Removed.png-2d47a171f47b96a44f5cc8e3d731a098.ctex::
 blank_shell_icon.png::CompressedTexture2D::3397316815017758531::1773502890::1773502890::1::::<><><>0<>0<>35def369dd35d09350e6040314cd1b23<>res://.godot/imported/blank_shell_icon.png-f1fb6461819ab0241abc0e55a8ba725f.ctex::
-can Background Removed.png::CompressedTexture2D::6856188486155311577::1773505079::1773505080::1::::<><><>0<>0<>a3037aa2ac9d07f249ef19d47b0d633a<>res://.godot/imported/can Background Removed.png-83cca03ef6fcfec757c58ed6c41f5787.ctex::
-cig Background Removed.png::CompressedTexture2D::347390698384974641::1773505377::1773505377::1::::<><><>0<>0<>3751ce5070b73701a41a2020c66b78df<>res://.godot/imported/cig Background Removed.png-3b85e05f303fe467e04452392b3e480e.ctex::
-cig_sprite.png::CompressedTexture2D::6901445181690175819::1773502890::1773502890::1::::<><><>0<>0<>4a50ddc66adca15aeaa44d520587ad11<>res://.godot/imported/cig_sprite.png-f9324d9e3ed4ff5a925e83009303ed20.ctex::
-cuffs Background Removed.png::CompressedTexture2D::8648318655626675854::1773507261::1773507261::1::::<><><>0<>0<>b28a974af2c0042a31f537525930b2cc<>res://.godot/imported/cuffs Background Removed.png-9f3d118dc2f1490bcd3e8c91c9a486af.ctex::
-handcuffs_sprite.png::CompressedTexture2D::742261610314895424::1773502890::1773502890::1::::<><><>0<>0<>11594c78ac1e0b746b1b21730f7cf928<>res://.godot/imported/handcuffs_sprite.png-8a06132c511d06225f5a165acc14a31f.ctex::
-handsaw_sprite.png::CompressedTexture2D::8218559746618148616::1773502890::1773502890::1::::<><><>0<>0<>886b8e726e9184a8a010bbfd835cf64f<>res://.godot/imported/handsaw_sprite.png-d1eed84c9f29e3b1a1d7a8fe3965a9ab.ctex::
-hsaw Background Removed.png::CompressedTexture2D::5510201791247412271::1773506702::1773506702::1::::<><><>0<>0<>ee0375231d849a6f0e112518deaaffcc<>res://.godot/imported/hsaw Background Removed.png-0457b7de70a61aec6370a12a18bcb5f5.ctex::
-lens Background Removed.png::CompressedTexture2D::6220094688720519471::1773506075::1773506076::1::::<><><>0<>0<>2ca458f61a8e49b7371d30b7f5fdf87d<>res://.godot/imported/lens Background Removed.png-5693d05d13cb2c41f54fde3fcd303bc5.ctex::
+cig_sprite2.png::CompressedTexture2D::6901445181690175819::1773502890::1773560171::1::::<><><>0<>0<>d364cd4bdc7448259ed94718e1ae740c<>res://.godot/imported/cig_sprite2.png-2c0b8f7e4b6d40138c9b500dc674ceb3.ctex::
+cig_sprite.png::CompressedTexture2D::347390698384974641::1773505377::1773560184::1::::<><><>0<>0<>3b74a60f67e7bbed48ad6d330af4a0b7<>res://.godot/imported/cig_sprite.png-f9324d9e3ed4ff5a925e83009303ed20.ctex::
+handcuffs_sprite2.png::CompressedTexture2D::742261610314895424::1773502890::1773563617::1::::<><><>0<>0<>8c6df2a208db0d54ef1730437338e50f<>res://.godot/imported/handcuffs_sprite2.png-1bb96832adbe5c7cb848880c64f7c759.ctex::
+handcuffs_sprite.png::CompressedTexture2D::8648318655626675854::1773507261::1773563626::1::::<><><>0<>0<>9728fac7a63257517f567f90185dbd14<>res://.godot/imported/handcuffs_sprite.png-8a06132c511d06225f5a165acc14a31f.ctex::
+handsaw_sprite2.png::CompressedTexture2D::5510201791247412271::1773506702::1773558758::1::::<><><>0<>0<>53edb027d620214c8a05fb5550517027<>res://.godot/imported/handsaw_sprite2.png-fdaa54261facaf48deb6ca43ed07331c.ctex::
+handsaw_sprite.png::CompressedTexture2D::8218559746618148616::1773502890::1773558849::1::::<><><>0<>0<>886b8e726e9184a8a010bbfd835cf64f<>res://.godot/imported/handsaw_sprite.png-d1eed84c9f29e3b1a1d7a8fe3965a9ab.ctex::
 live_shell_icon.png::CompressedTexture2D::1285578787510860962::1773502890::1773502890::1::::<><><>0<>0<>348d476d27aeaba861c343fbb4dd45c7<>res://.godot/imported/live_shell_icon.png-f6d3676d57e8abcc147b01c8ffa43e22.ctex::
-magnifying_glass_sprite.png::CompressedTexture2D::150088488071422715::1773502890::1773502890::1::::<><><>0<>0<>6719c9ad9b842ffc465cd5142fb05390<>res://.godot/imported/magnifying_glass_sprite.png-647aa35ab72e9e734fe01ed803cad231.ctex::
+magnifying_glass_sprite2.png::CompressedTexture2D::150088488071422715::1773502890::1773559441::1::::<><><>0<>0<>78c247cb70b98db4faa8afee272920b1<>res://.godot/imported/magnifying_glass_sprite2.png-b0cc6dba0dc57c7cae7a57e604839b9c.ctex::
+magnifying_glass_sprite.png.png::CompressedTexture2D::6220094688720519471::1773506075::1773559459::1::::<><><>0<>0<>77beaa79cf39c14c27b4f3f84f8665ef<>res://.godot/imported/magnifying_glass_sprite.png.png-87952b7ffd9a4a470f5beb80bb691bb2.ctex::
 shell_trey.jpeg::CompressedTexture2D::4345319164134614631::1773502890::1773502890::1::::<><><>0<>0<>e16449129f63725740a77ea03861e5ac<>res://.godot/imported/shell_trey.jpeg-cbb3fbef569c34e750bef5687e39e673.ctex::
 shotgun_sprite.png::CompressedTexture2D::2510578556667469951::1773503229::1773503277::1::::<><><>0<>0<>2f6e303e39cb585b4be97f0a083b32ff<>res://.godot/imported/shotgun_sprite.png-bb21987306374e23ee88035ca53c6fab.ctex::
 soda_sprite1.png::CompressedTexture2D::7103215279113159961::1773502890::1773558411::1::::<><><>0<>0<>dcbe654a524c248e704c32363749be68<>res://.godot/imported/soda_sprite1.png-6f0eb9a7e8b02e14be7a85338db6020e.ctex::
+soda_sprite.png::CompressedTexture2D::6856188486155311577::1773505079::1773558554::1::::<><><>0<>0<>6c7a3a2d8b5ca3484ac2c5cec31b3ba2<>res://.godot/imported/soda_sprite.png-0a2ed28f269905ddd41428efb2404deb.ctex::
 ::res://Assets/UI/::1773550970
 Creepster-Regular.ttf::FontFile::8182565591418916399::1773502890::1773502890::1::::<><><>0<>0<>d1dd92151af9933eaa559b0dcbf9e3ca<>res://.godot/imported/Creepster-Regular.ttf-ef48579bf3664d887d5081ac8a77a57d.fontdata::
 hp_icon.png::CompressedTexture2D::8436326412561867732::1773502890::1773502890::1::::<><><>0<>0<>9933579572cc4162c8e77dcf21afb7de<>res://.godot/imported/hp_icon.png-44426f39742a10f0132624b31986ebfd.ctex::
@@ -41,9 +41,9 @@ orb Background Removed.png::CompressedTexture2D::2591369429256100474::1773550965
 shell_counter_ui.png::CompressedTexture2D::5556065041667022015::1773502890::1773502890::1::::<><><>0<>0<>1ba123cc48742c2b9f1448332a987cf6<>res://.godot/imported/shell_counter_ui.png-7e2b50696b7dbb81a9271d4b6209d518.ctex::
 shoot_dealer_button.png::CompressedTexture2D::1942691802745385994::1773502890::1773502890::1::::<><><>0<>0<>33a262cdb32806380f94281839c9b4aa<>res://.godot/imported/shoot_dealer_button.png-f3887bf44117cf8efbb517e04f4480a8.ctex::
 shoot_self_button.png::CompressedTexture2D::1542833200901496000::1773502890::1773502890::1::::<><><>0<>0<>53270a6024a1aa8d5efcda09390b7b9b<>res://.godot/imported/shoot_self_button.png-65c0093c4a8cec71896b83b2572cb7f8.ctex::
-::res://Scenes/::1773558385
+::res://Scenes/::1773563625
 LoseScreen.tscn::PackedScene::-1::1773502890::0::1::::<><><>0<>0<><>::res://Scripts/UI/LoseScreen.gd
-MainScene.tscn::PackedScene::4170776268033164578::1773558435::0::1::::<><><>0<>0<><>::uid://bn0yrlpqjox4d::::res://Scripts/MainScene.gd<>uid://ckg37wso5tued::::res://Scripts/Systems/ShotgunSystem.gd<>uid://dpum4bgtxgt1t::::res://Scripts/Systems/RoundSystem.gd<>uid://dfi8po5fyju3o::::res://Scripts/Systems/HealthComponent.gd<>uid://bqmishcydqopm::::res://Scripts/Systems/PlayerController.gd<>uid://r62f8htok35k::::res://Scripts/Systems/DealerTurnLogic.gd<>uid://b508ys7eeiodt::::res://Scripts/UI/UIManager.gd<>uid://v8micpc8rbxw::::res://Assets/UI/shoot_self_button.png<>uid://2xb351x643vy::::res://Assets/UI/shoot_dealer_button.png<>uid://cxose71ao36v2::::res://Scripts/vignette.gdshader<>uid://c5ld18wv3r6v4::::res://Assets/Objects/cig_sprite.png<>uid://cex62nyxixff::::res://Assets/Objects/magnifying_glass_sprite.png<>uid://c8g36hblxga70::::res://Assets/Objects/soda_sprite1.png<>uid://trt5y57vje7a::::res://Assets/Environment/main.png<>uid://bb1e4krfktjjr::::res://Assets/Objects/shotgun_sprite.png<>uid://c4xgomuo4j5aj::::res://Assets/Objects/can Background Removed.png<>uid://dpdeqi5lbowy7::::res://Assets/Objects/handsaw_sprite.png<>uid://e7jqd88nfs14::::res://Assets/Objects/cig Background Removed.png<>uid://cuvcbyw6djnbb::::res://Assets/Objects/lens Background Removed.png<>uid://ckrghosak5lk6::::res://Assets/Objects/hsaw Background Removed.png<>uid://dvhksrx17t647::::res://Assets/Objects/cuffs Background Removed.png<>uid://dhk1xfaglaqns::::res://Assets/Objects/4card Background Removed.png<>uid://dotxwoy5lnfrb::::res://Assets/UI/Creepster-Regular.ttf<>uid://dwfrcqhxhp0qm::::res://Scripts/Systems/ItemSystem.gd<>uid://b2551if2xaibv::::res://Assets/Objects/shell_trey.jpeg
+MainScene.tscn::PackedScene::4170776268033164578::1773563625::0::1::::<><><>0<>0<><>::uid://bn0yrlpqjox4d::::res://Scripts/MainScene.gd<>uid://ckg37wso5tued::::res://Scripts/Systems/ShotgunSystem.gd<>uid://dpum4bgtxgt1t::::res://Scripts/Systems/RoundSystem.gd<>uid://dfi8po5fyju3o::::res://Scripts/Systems/HealthComponent.gd<>uid://bqmishcydqopm::::res://Scripts/Systems/PlayerController.gd<>uid://r62f8htok35k::::res://Scripts/Systems/DealerTurnLogic.gd<>uid://b508ys7eeiodt::::res://Scripts/UI/UIManager.gd<>uid://v8micpc8rbxw::::res://Assets/UI/shoot_self_button.png<>uid://2xb351x643vy::::res://Assets/UI/shoot_dealer_button.png<>uid://cxose71ao36v2::::res://Scripts/vignette.gdshader<>uid://c5ld18wv3r6v4::::res://Assets/Objects/cig_sprite2.png<>uid://cex62nyxixff::::res://Assets/Objects/magnifying_glass_sprite2.png<>uid://c8g36hblxga70::::res://Assets/Objects/soda_sprite1.png<>uid://trt5y57vje7a::::res://Assets/Environment/main.png<>uid://bb1e4krfktjjr::::res://Assets/Objects/shotgun_sprite.png<>uid://c4xgomuo4j5aj::::res://Assets/Objects/soda_sprite.png<>uid://dpdeqi5lbowy7::::res://Assets/Objects/handsaw_sprite.png<>uid://e7jqd88nfs14::::res://Assets/Objects/cig_sprite.png<>uid://cuvcbyw6djnbb::::res://Assets/Objects/magnifying_glass_sprite.png.png<>uid://ckrghosak5lk6::::res://Assets/Objects/handsaw_sprite2.png<>uid://dvhksrx17t647::::res://Assets/Objects/handcuffs_sprite.png<>uid://dhk1xfaglaqns::::res://Assets/Objects/4card Background Removed.png<>uid://dotxwoy5lnfrb::::res://Assets/UI/Creepster-Regular.ttf<>uid://dwfrcqhxhp0qm::::res://Scripts/Systems/ItemSystem.gd<>uid://b2551if2xaibv::::res://Assets/Objects/shell_trey.jpeg
 StartMenu.tscn::PackedScene::-1::1773556983::0::1::::<><><>0<>0<><>::res://Scripts/UI/StartMenu.gd
 WinScreen.tscn::PackedScene::-1::1773502890::0::1::::<><><>0<>0<><>::res://Scripts/UI/WinScreen.gd
 ::res://Scripts/::1773502890
@@ -54,19 +54,19 @@ BaseItem.gd::GDScript::7249553217889242086::1773502890::0::1::::<>RefCounted<><>
 ItemCigarette.gd::GDScript::469188030658702308::1773502890::0::1::::<>RefCounted<><>0<>0<><>::
 ItemHandcuffs.gd::GDScript::1818897561171308233::1773502890::0::1::::<>RefCounted<><>0<>0<><>::
 ItemHandsaw.gd::GDScript::310945972266243554::1773502890::0::1::::<>RefCounted<><>0<>0<><>::
-ItemMagnifyingGlass.gd::GDScript::4264949303926742718::1773502890::0::1::::<>RefCounted<><>0<>0<><>::
+ItemMagnifyingGlass.gd::GDScript::4264949303926742718::1773559975::0::1::::<>RefCounted<><>0<>0<><>::
 ItemPlus4Card.gd::GDScript::4459472435824482129::1773551782::0::1::::<>RefCounted<><>0<>0<><>::
 ItemSoda.gd::GDScript::4900920294698619253::1773502890::0::1::::<>RefCounted<><>0<>0<><>::
 ::res://Scripts/Systems/::1773502890
-DealerTurnLogic.gd::GDScript::1258856084963216454::1773551828::0::1::::<>Node<><>0<>0<><>::
-GameStateManager.gd::GDScript::52625238782809474::1773557096::0::1::::<>Node<><>0<>0<><>::
+DealerTurnLogic.gd::GDScript::1258856084963216454::1773560941::0::1::::<>Node<><>0<>0<><>::
+GameStateManager.gd::GDScript::52625238782809474::1773561444::0::1::::<>Node<><>0<>0<><>::
 HealthComponent.gd::GDScript::7528752520902471550::1773502890::0::1::::<>Node<><>0<>0<><>::
 ItemSystem.gd::GDScript::8714775112593375512::1773551796::0::1::::<>Node<><>0<>0<><>::
 PlayerController.gd::GDScript::3534732967030920946::1773502890::0::1::::<>Node<><>0<>0<><>::
-RoundSystem.gd::GDScript::8254162715353868115::1773557073::0::1::::<>Node<><>0<>0<><>::
+RoundSystem.gd::GDScript::8254162715353868115::1773561432::0::1::::<>Node<><>0<>0<><>::
 ShotgunSystem.gd::GDScript::5488874475490440979::1773552022::0::1::::<>Node<><>0<>0<><>::
 ::res://Scripts/UI/::1773557195
 LoseScreen.gd::GDScript::1661259483219611919::1773557046::0::1::::<>Control<><>0<>0<><>::
 StartMenu.gd::GDScript::7046173099892609988::1773556981::0::1::::<>Control<><>0<>0<><>::
-UIManager.gd::GDScript::4545742951542039473::1773557124::0::1::::<>CanvasLayer<><>0<>0<><>::
+UIManager.gd::GDScript::4545742951542039473::1773561469::0::1::::<>CanvasLayer<><>0<>0<><>::
 WinScreen.gd::GDScript::1281814227919466000::1773557048::0::1::::<>Control<><>0<>0<><>::

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckrghosak5lk6"
-path="res://.godot/imported/hsaw Background Removed.png-0457b7de70a61aec6370a12a18bcb5f5.ctex"
+uid="uid://c5ld18wv3r6v4"
+path="res://.godot/imported/cig_sprite2.png-2c0b8f7e4b6d40138c9b500dc674ceb3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Objects/hsaw Background Removed.png"
-dest_files=["res://.godot/imported/hsaw Background Removed.png-0457b7de70a61aec6370a12a18bcb5f5.ctex"]
+source_file="res://Assets/Objects/cig_sprite2.png"
+dest_files=["res://.godot/imported/cig_sprite2.png-2c0b8f7e4b6d40138c9b500dc674ceb3.ctex"]
 
 [params]
 

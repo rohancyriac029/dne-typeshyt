@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvhksrx17t647"
-path="res://.godot/imported/cuffs Background Removed.png-9f3d118dc2f1490bcd3e8c91c9a486af.ctex"
+uid="uid://kts677u2vxh5"
+path="res://.godot/imported/handcuffs_sprite2.png-1bb96832adbe5c7cb848880c64f7c759.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Objects/cuffs Background Removed.png"
-dest_files=["res://.godot/imported/cuffs Background Removed.png-9f3d118dc2f1490bcd3e8c91c9a486af.ctex"]
+source_file="res://Assets/Objects/handcuffs_sprite2.png"
+dest_files=["res://.godot/imported/handcuffs_sprite2.png-1bb96832adbe5c7cb848880c64f7c759.ctex"]
 
 [params]
 

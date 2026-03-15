@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e7jqd88nfs14"
-path="res://.godot/imported/cig Background Removed.png-3b85e05f303fe467e04452392b3e480e.ctex"
+uid="uid://cuvcbyw6djnbb"
+path="res://.godot/imported/magnifying_glass_sprite.png.png-87952b7ffd9a4a470f5beb80bb691bb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Objects/cig Background Removed.png"
-dest_files=["res://.godot/imported/cig Background Removed.png-3b85e05f303fe467e04452392b3e480e.ctex"]
+source_file="res://Assets/Objects/magnifying_glass_sprite.png.png"
+dest_files=["res://.godot/imported/magnifying_glass_sprite.png.png-87952b7ffd9a4a470f5beb80bb691bb2.ctex"]
 
 [params]
 

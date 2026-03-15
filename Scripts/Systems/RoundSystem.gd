@@ -60,7 +60,7 @@ func on_dealer_killed() -> void:
 ## Loads the Ghost Round (Round 4). Fixed 8 shells, max 2 live, 1 HP player, ∞ dealer.
 func load_ghost_round() -> void:
 	is_reloading = false
-	var live_count: int = randi_range(1, 2)
+	var live_count: int = randi_range(2, 3)
 	var blank_count: int = 8 - live_count
 	print("[Round] Loading Ghost Round 4: %d LIVE + %d BLANK" % [live_count, blank_count])
 

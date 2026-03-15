@@ -412,7 +412,8 @@ func _set_buttons_visible(visible_state: bool) -> void:
 
 # ── Ghost Round 4 HP display ──────────────────────────────────────────
 
-## Player HP in ghost round: single glowing orb with pulsing animation
+## Player HP in ghost round: single glowing orb with pulsing animation.
+## Color/brightness changes based on orb charge state.
 func _update_ghost_player_hp(current: int) -> void:
 	for child in player_hp_container.get_children():
 		child.queue_free()
@@ -425,23 +426,75 @@ func _update_ghost_player_hp(current: int) -> void:
 	if current <= 0:
 		return  # Orb is shattered — show nothing
 
+	# Determine orb appearance based on charge state
+	var orb_charge: int = gsm.ghost_orb_charge if gsm else 0
+	var orb_stable: bool = gsm.ghost_orb_stabilized if gsm else false
+
+	var base_color: Color
+	var pulse_bright: Color
+	var pulse_dim: Color
+	var orb_size: float = 32.0
+
+	if orb_stable:
+		# Stabilized: bright golden-cyan glow, larger
+		base_color   = Color(0.8, 1.0, 0.4, 1.0)
+		pulse_bright = Color(1.0, 1.2, 0.6, 1.0)
+		pulse_dim    = Color(0.6, 0.9, 0.3, 0.9)
+		orb_size     = 38.0
+	elif orb_charge == 2:
+		# 2 charges: brighter, almost ready
+		base_color   = Color(0.6, 1.0, 0.8, 1.0)
+		pulse_bright = Color(0.8, 1.15, 1.0, 1.0)
+		pulse_dim    = Color(0.45, 0.85, 0.7, 0.9)
+		orb_size     = 36.0
+	elif orb_charge == 1:
+		# 1 charge: slightly brighter cyan
+		base_color   = Color(0.5, 0.95, 1.1, 1.0)
+		pulse_bright = Color(0.7, 1.1, 1.3, 1.0)
+		pulse_dim    = Color(0.35, 0.75, 0.9, 0.85)
+		orb_size     = 34.0
+	else:
+		# 0 charges: dim, fragile
+		base_color   = Color(0.4, 0.9, 1.0, 1.0)
+		pulse_bright = Color(0.6, 1.0, 1.2, 1.0)
+		pulse_dim    = Color(0.3, 0.7, 0.9, 0.8)
+		orb_size     = 32.0
+
 	var tex_rect := TextureRect.new()
 	if _orb_texture:
 		tex_rect.texture = _orb_texture
 	else:
 		tex_rect.texture = hp_texture  # fallback
 	tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-	tex_rect.custom_minimum_size = Vector2(32, 32)
-	tex_rect.modulate = Color(0.4, 0.9, 1.0, 1.0)  # Cyan glow
+	tex_rect.custom_minimum_size = Vector2(orb_size, orb_size)
+	tex_rect.modulate = base_color
 	player_hp_container.add_child(tex_rect)
 
-	# Pulsing glow animation
+	# Pulsing glow animation (speed varies by state)
+	var pulse_speed: float = 0.5 if orb_stable else 0.8
 	_orb_glow_tween = get_tree().create_tween().set_loops()
-	_orb_glow_tween.tween_property(tex_rect, "modulate", Color(0.6, 1.0, 1.2, 1.0), 0.8).set_ease(Tween.EASE_IN_OUT)
-	_orb_glow_tween.tween_property(tex_rect, "modulate", Color(0.3, 0.7, 0.9, 0.8), 0.8).set_ease(Tween.EASE_IN_OUT)
+	_orb_glow_tween.tween_property(tex_rect, "modulate", pulse_bright, pulse_speed).set_ease(Tween.EASE_IN_OUT)
+	_orb_glow_tween.tween_property(tex_rect, "modulate", pulse_dim, pulse_speed).set_ease(Tween.EASE_IN_OUT)
 	var scale_tween := get_tree().create_tween().set_loops()
-	scale_tween.tween_property(tex_rect, "custom_minimum_size", Vector2(36, 36), 0.8).set_ease(Tween.EASE_IN_OUT)
-	scale_tween.tween_property(tex_rect, "custom_minimum_size", Vector2(32, 32), 0.8).set_ease(Tween.EASE_IN_OUT)
+	scale_tween.tween_property(tex_rect, "custom_minimum_size", Vector2(orb_size + 4, orb_size + 4), pulse_speed).set_ease(Tween.EASE_IN_OUT)
+	scale_tween.tween_property(tex_rect, "custom_minimum_size", Vector2(orb_size, orb_size), pulse_speed).set_ease(Tween.EASE_IN_OUT)
+
+
+## Visual feedback when orb absorbs a blank (partial charge).
+func show_orb_charge(charge: int) -> void:
+	_flash_feedback("ORB CHARGE: %d/3" % charge, Color(0.4, 0.9, 1.0))
+	# Refresh the player HP display to show updated orb appearance
+	if gsm and gsm.player:
+		_update_ghost_player_hp(gsm.player.current_hp)
+
+
+## Visual feedback when the orb stabilizes (2/2 charges reached).
+func show_orb_stabilized() -> void:
+	# Flash a dramatic message
+	_flash_feedback("★ ORB STABILIZED ★", Color(1.0, 1.0, 0.3))
+	# Refresh orb visual
+	if gsm and gsm.player:
+		_update_ghost_player_hp(gsm.player.current_hp)
 
 
 ## Dealer HP in ghost round: single ∞ symbol

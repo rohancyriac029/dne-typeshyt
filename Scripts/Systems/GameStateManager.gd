@@ -41,6 +41,10 @@ var shotgun_damage: int  = 1   # reset to 1 after every shot
 var is_ghost_round: bool        = false
 var is_resurrected_round3: bool = false
 
+# ── Orb state machine (Round 4) ──────────────────────────────────────
+var ghost_orb_charge: int       = 0      # blank impacts absorbed
+var ghost_orb_stabilized: bool  = false   # true after 2 blank impacts
+
 # ── Start Menu / Game Mode ───────────────────────────────────────────
 var game_mode: String       = "classic"  # "classic", "single", "ghost"
 var start_round_idx: int    = 0          # 0=Round1, 1=Round2, 2=Round3, 3=Ghost
@@ -107,6 +111,8 @@ func _on_state_entered(state: State) -> void:
 
 		State.GHOST_ROUND_START:
 			is_ghost_round = true
+			ghost_orb_charge = 0
+			ghost_orb_stabilized = false
 			player_cuffed  = false
 			dealer_cuffed  = false
 			shotgun_damage = 1
@@ -255,35 +261,56 @@ func dealer_shoot(target: String) -> void:
 
 # ── Ghost Round 4 shot resolution ─────────────────────────────────────
 
-func _resolve_ghost_shot(shell: String, damage: int) -> void:
+func _resolve_ghost_shot(shell: String, _damage: int) -> void:
+	var shot_self: bool = (pending_shooter == pending_target)
+	var hit_player: bool = (pending_target == "player")
+	var hit_dealer: bool = (pending_target == "dealer")
+
+	# ── LIVE shell ────────────────────────────────────────────────────
 	if shell == "LIVE":
-		var shot_self: bool = (pending_shooter == pending_target)
+		if hit_player:
+			if ghost_orb_stabilized:
+				# Orb is stabilized — LIVE completes the resurrection circuit
+				print("[GSM] GHOST WIN — LIVE hit stabilized Orb → Resurrection!")
+				await get_tree().create_timer(0.8).timeout
+				change_state(State.RESURRECTION)
+				return
+			else:
+				# Orb is NOT stabilized — LIVE shatters it → permanent death
+				print("[GSM] GHOST LOSE — LIVE hit unstabilized Orb → permanent death")
+				player.take_damage(1)
+				await get_tree().create_timer(1.0).timeout
+				is_ghost_round = false
+				change_state(State.LOSE)
+				return
 
-		if pending_shooter == "player" and shot_self:
-			# Ghost shoots self with LIVE → RESURRECTION WIN!
-			print("[GSM] GHOST WIN — Player shot self with LIVE → Resurrection!")
-			player.take_damage(damage)  # visual: orb shatters
-			await get_tree().create_timer(0.8).timeout
-			change_state(State.RESURRECTION)
-			return
-
-		if pending_target == "player":
-			# Dealer shot Ghost with LIVE → permanent death
-			print("[GSM] GHOST LOSE — Dealer hit Ghost with LIVE → permanent death")
-			player.take_damage(damage)
-			await get_tree().create_timer(1.0).timeout
-			is_ghost_round = false  # Reset before going to LOSE
-			change_state(State.LOSE)
-			return
-
-		if pending_target == "dealer":
-			# Shooting dealer with LIVE does nothing (∞ HP), but turn still passes
+		if hit_dealer:
+			# Dealer has ∞ HP — LIVE does nothing, turn passes
 			print("[GSM] Ghost round: LIVE hit dealer — no effect (∞ HP)")
-	else:
-		# BLANK — does nothing to any target in Round 4
-		print("[GSM] Ghost round: BLANK — no effect")
 
-	# Check if barrel is exhausted → Ghost loses (barrel ran out)
+	# ── BLANK shell ───────────────────────────────────────────────────
+	else:
+		if hit_player:
+			if not ghost_orb_stabilized:
+				ghost_orb_charge += 1
+				print("[GSM] Ghost Orb absorbed BLANK — charge: %d/3" % ghost_orb_charge)
+				if ghost_orb_charge >= 3:
+					ghost_orb_stabilized = true
+					print("[GSM] ★ ORB STABILIZED — live shells now grant resurrection!")
+					# Trigger visual stabilization feedback
+					if ui_manager and ui_manager.has_method("show_orb_stabilized"):
+						await ui_manager.show_orb_stabilized()
+				else:
+					# Partial charge visual feedback
+					if ui_manager and ui_manager.has_method("show_orb_charge"):
+						ui_manager.show_orb_charge(ghost_orb_charge)
+			else:
+				print("[GSM] Ghost round: BLANK hit stabilized Orb — no further effect")
+		else:
+			# BLANK hit dealer — nothing happens
+			print("[GSM] Ghost round: BLANK hit dealer — no effect")
+
+	# ── Check barrel exhaustion ───────────────────────────────────────
 	if shotgun_system.is_empty():
 		print("[GSM] GHOST LOSE — barrel exhausted, no resurrection")
 		await get_tree().create_timer(1.0).timeout
@@ -291,8 +318,8 @@ func _resolve_ghost_shot(shell: String, damage: int) -> void:
 		change_state(State.LOSE)
 		return
 
-	# Standard turn switching (blank self = keep turn, else switch)
-	var shot_self_blank: bool = (pending_shooter == pending_target) and shell == "BLANK"
+	# ── Turn switching ────────────────────────────────────────────────
+	var shot_self_blank: bool = shot_self and shell == "BLANK"
 	if shot_self_blank:
 		print("[GSM] Ghost BLANK (self) — ", pending_shooter, " shoots again.")
 		await get_tree().create_timer(1.0).timeout
