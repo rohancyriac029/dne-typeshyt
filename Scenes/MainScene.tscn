@@ -22,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://ckrghosak5lk6" path="res://Assets/Objects/handsaw_sprite2.png" id="23_p5ymy"]
 [ext_resource type="Texture2D" uid="uid://dvhksrx17t647" path="res://Assets/Objects/handcuffs_sprite.png" id="24_3va76"]
 [ext_resource type="Texture2D" uid="uid://dhk1xfaglaqns" path="res://Assets/Objects/4card Background Removed.png" id="25_wmecs"]
+[ext_resource type="Texture2D" uid="uid://ddvo1bk685hxg" path="res://Assets/bare_stage.png" id="26_r0vnq"]
+[ext_resource type="Texture2D" uid="uid://d3q7h5y5fwndg" path="res://Assets/normal_players_hands.png" id="27_c3pre"]
+[ext_resource type="Texture2D" uid="uid://c6q6nik5uoc77" path="res://Assets/normal_dealer.png" id="28_u5v48"]
 [ext_resource type="FontFile" uid="uid://dotxwoy5lnfrb" path="res://Assets/UI/Creepster-Regular.ttf" id="creepster_font"]
 [ext_resource type="Script" uid="uid://dwfrcqhxhp0qm" path="res://Scripts/Systems/ItemSystem.gd" id="item_system_script"]
 [ext_resource type="Texture2D" uid="uid://b2551if2xaibv" path="res://Assets/Objects/shell_trey.jpeg" id="shell_trey"]
@@ -323,7 +326,7 @@ scale = Vector2(0.06835938, 0.066406265)
 texture = ExtResource("20_p5ymy")
 
 [node name="Main" type="Sprite2D" parent="." unique_id=31606054]
-position = Vector2(585, 329.00003)
+position = Vector2(-1671, 842)
 scale = Vector2(0.7454427, 0.6328125)
 texture = ExtResource("19_i0j58")
 
@@ -357,3 +360,18 @@ texture = ExtResource("24_3va76")
 position = Vector2(1234, 1016)
 scale = Vector2(0.052734468, 0.04964194)
 texture = ExtResource("25_wmecs")
+
+[node name="BareStage" type="Sprite2D" parent="." unique_id=207128849]
+position = Vector2(576.5001, 331.49994)
+scale = Vector2(0.7467448, 0.63378906)
+texture = ExtResource("26_r0vnq")
+
+[node name="NormalPlayersHands" type="Sprite2D" parent="." unique_id=642601079]
+position = Vector2(554, 604.0001)
+scale = Vector2(0.24609376, 0.25097656)
+texture = ExtResource("27_c3pre")
+
+[node name="NormalDealer" type="Sprite2D" parent="." unique_id=1639338491]
+position = Vector2(581.49994, 144.50003)
+scale = Vector2(0.39192712, 0.3369141)
+texture = ExtResource("28_u5v48")
