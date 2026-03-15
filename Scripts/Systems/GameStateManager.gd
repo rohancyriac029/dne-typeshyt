@@ -41,6 +41,10 @@ var shotgun_damage: int  = 1   # reset to 1 after every shot
 var is_ghost_round: bool        = false
 var is_resurrected_round3: bool = false
 
+# ── Start Menu / Game Mode ───────────────────────────────────────────
+var game_mode: String       = "classic"  # "classic", "single", "ghost"
+var start_round_idx: int    = 0          # 0=Round1, 1=Round2, 2=Round3, 3=Ghost
+
 signal state_changed(new_state: State)
 
 
@@ -92,9 +96,9 @@ func _on_state_entered(state: State) -> void:
 			pass  # UIManager listens and switches scene
 
 		State.LOSE:
-			# If we died in Round 3 (index 2) and NOT already in ghost/resurrected
-			# → enter Round 4 instead of showing LoseScreen
-			if round_system.current_round == 2 and not is_ghost_round and not is_resurrected_round3:
+			# Ghost round entry only in classic mode:
+			# Died in Round 3 (index 2), NOT single/ghost mode, NOT already ghost/resurrected
+			if game_mode == "classic" and round_system.current_round == 2 and not is_ghost_round and not is_resurrected_round3:
 				print("[GSM] Died in Round 3 → entering Ghost Round 4")
 				await get_tree().create_timer(1.5).timeout
 				change_state(State.GHOST_ROUND_START)

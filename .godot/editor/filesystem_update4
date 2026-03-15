@@ -1,8 +1,1 @@
 res://Scenes/MainScene.tscn
-res://Scripts/MainScene.gd
-res://Scripts/Systems/DealerTurnLogic.gd
-res://Scripts/Systems/GameStateManager.gd
-res://Scripts/Systems/ItemSystem.gd
-res://Scripts/Systems/RoundSystem.gd
-res://Scripts/Systems/ShotgunSystem.gd
-res://Scripts/UI/UIManager.gd

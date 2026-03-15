@@ -373,8 +373,8 @@ func _on_state_changed(new_state) -> void:
 		gsm.State.LOSE:
 			_hide_turn_indicator()
 			# Don't switch to LoseScreen if GSM is about to transition to ghost round
-			# (GSM handles the transition in _on_state_entered)
-			if gsm.round_system.current_round == 2 and not gsm.is_ghost_round and not gsm.is_resurrected_round3:
+			# (only happens in classic mode, Round 3 death, not already ghost/resurrected)
+			if gsm.game_mode == "classic" and gsm.round_system.current_round == 2 and not gsm.is_ghost_round and not gsm.is_resurrected_round3:
 				return  # GSM will transition to GHOST_ROUND_START
 			await get_tree().process_frame
 			get_tree().change_scene_to_file("res://Scenes/LoseScreen.tscn")

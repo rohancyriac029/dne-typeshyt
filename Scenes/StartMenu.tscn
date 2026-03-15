@@ -1,0 +1,95 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/StartMenu.gd" id="1"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 60.0
+offset_right = 876.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 52
+text = "BUCKSHOT ROULETTE"
+horizontal_alignment = 1
+
+[node name="SubLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 140.0
+offset_right = 776.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 18
+text = "Death is not the end."
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 220.0
+offset_right = 826.0
+offset_bottom = 580.0
+theme_override_constants/separation = 18
+
+[node name="ClassicButton" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Play the Classic Way"
+
+[node name="Level1Button" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Level 1 — Round 1 Only"
+
+[node name="Level2Button" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Level 2 — Round 2 Only"
+
+[node name="Level3Button" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Level 3 — Round 3 Only"
+
+[node name="GhostButton" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1.0, 1)
+theme_override_colors/font_hover_color = Color(0.3, 0.9, 1.0, 1)
+theme_override_font_sizes/font_size = 22
+text = "Ghost Level — The Other Side"
+
+[connection signal="pressed" from="ButtonContainer/ClassicButton" to="." method="_on_classic_pressed"]
+[connection signal="pressed" from="ButtonContainer/Level1Button" to="." method="_on_level1_pressed"]
+[connection signal="pressed" from="ButtonContainer/Level2Button" to="." method="_on_level2_pressed"]
+[connection signal="pressed" from="ButtonContainer/Level3Button" to="." method="_on_level3_pressed"]
+[connection signal="pressed" from="ButtonContainer/GhostButton" to="." method="_on_ghost_pressed"]

@@ -43,6 +43,11 @@ func reload_shells() -> void:
 
 ## Called when the dealer is killed. Advances to the next round or triggers WIN.
 func on_dealer_killed() -> void:
+	# Single-round mode — always WIN after this round
+	if gsm.game_mode == "single":
+		gsm.change_state(gsm.State.WIN)
+		return
+
 	current_round += 1
 	if current_round >= 3:
 		# All 3 rounds cleared → WIN

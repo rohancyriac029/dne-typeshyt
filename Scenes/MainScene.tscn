@@ -12,10 +12,10 @@
 [ext_resource type="Shader" uid="uid://cxose71ao36v2" path="res://Scripts/vignette.gdshader" id="14"]
 [ext_resource type="Texture2D" uid="uid://c5ld18wv3r6v4" path="res://Assets/Objects/cig_sprite.png" id="17_c1ier"]
 [ext_resource type="Texture2D" uid="uid://cex62nyxixff" path="res://Assets/Objects/magnifying_glass_sprite.png" id="18_gyaec"]
-[ext_resource type="Texture2D" uid="uid://c8g36hblxga70" path="res://Assets/Objects/soda_sprite.png" id="19_bpy1e"]
+[ext_resource type="Texture2D" uid="uid://c8g36hblxga70" path="res://Assets/Objects/soda_sprite1.png" id="19_bpy1e"]
 [ext_resource type="Texture2D" uid="uid://trt5y57vje7a" path="res://Assets/Environment/main.png" id="19_i0j58"]
 [ext_resource type="Texture2D" uid="uid://bb1e4krfktjjr" path="res://Assets/Objects/shotgun_sprite.png" id="20_c1ier"]
-[ext_resource type="Texture2D" uid="uid://c4xgomuo4j5aj" path="res://Assets/Objects/can Background Removed.png" id="20_gyaec"]
+[ext_resource type="Texture2D" uid="uid://c4xgomuo4j5aj" path="res://Assets/Objects/soda_sprite.png" id="20_gyaec"]
 [ext_resource type="Texture2D" uid="uid://dpdeqi5lbowy7" path="res://Assets/Objects/handsaw_sprite.png" id="20_p5ymy"]
 [ext_resource type="Texture2D" uid="uid://e7jqd88nfs14" path="res://Assets/Objects/cig Background Removed.png" id="21_gyaec"]
 [ext_resource type="Texture2D" uid="uid://cuvcbyw6djnbb" path="res://Assets/Objects/lens Background Removed.png" id="22_bpy1e"]
@@ -226,9 +226,9 @@ rotation = 1.5707964
 
 [node name="ShootSelfButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=238123634]
 layout_mode = 0
-offset_left = 427.0
+offset_left = 50.0
 offset_top = 555.0
-offset_right = 908.0
+offset_right = 531.0
 offset_bottom = 729.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("12")
@@ -236,9 +236,9 @@ stretch_mode = 0
 
 [node name="ShootDealerButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=1630559196]
 layout_mode = 0
-offset_left = 427.0
+offset_left = 750.0
 offset_top = 177.0
-offset_right = 926.0
+offset_right = 1249.0
 offset_bottom = 371.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("13")
@@ -262,7 +262,6 @@ offset_bottom = 202.0
 alignment = 1
 
 [node name="FeedbackLabel" type="Label" parent="CanvasLayer/UI" unique_id=564738291]
-visible = false
 layout_mode = 0
 offset_left = 380.0
 offset_top = 270.0
