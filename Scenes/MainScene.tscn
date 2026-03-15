@@ -34,8 +34,8 @@ shader_parameter/softness = 0.45
 
 [node name="MainScene" type="Node2D" unique_id=903834437]
 script = ExtResource("1")
-metadata/_edit_horizontal_guides_ = [602.0, 203.0]
-metadata/_edit_vertical_guides_ = [567.0]
+metadata/_edit_horizontal_guides_ = [602.0, 252.0]
+metadata/_edit_vertical_guides_ = [164.0, 579.0]
 
 [node name="ShotgunSprite" type="Sprite2D" parent="." unique_id=855159093]
 z_index = 4
@@ -71,10 +71,10 @@ script = ExtResource("11")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = -8.0
-offset_right = 7.0
-offset_bottom = -8.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 4.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.05, 0, 0, 0.85)
@@ -179,10 +179,10 @@ material = SubResource("ShaderMaterial_vignette")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -71.0
-offset_right = 1.0
-offset_bottom = 80.0
+offset_left = 9.0
+offset_top = -67.0
+offset_right = 6.0
+offset_bottom = 84.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -192,27 +192,27 @@ layout_mode = 3
 anchor_top = -0.279
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 27.0
-offset_top = 175.792
-offset_right = -23.0
-offset_bottom = 149.0
+offset_left = -20.0
+offset_top = 182.792
+offset_right = -70.0
+offset_bottom = 156.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PlayerHPContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=442291147]
 layout_mode = 0
-offset_left = 804.0
-offset_top = 570.0
-offset_right = 1023.0
-offset_bottom = 616.0
+offset_left = 742.0
+offset_top = 581.0
+offset_right = 954.0
+offset_bottom = 633.0
 scale = Vector2(0.5, 0.5)
 
 [node name="DealerHPContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=1946002029]
 layout_mode = 0
-offset_left = 121.0
-offset_top = 27.0
-offset_right = 339.0
-offset_bottom = 77.0
+offset_left = 721.0
+offset_top = 25.0
+offset_right = 997.0
+offset_bottom = 79.0
 scale = Vector2(0.5, 0.5)
 alignment = 2
 
@@ -226,39 +226,40 @@ rotation = 1.5707964
 
 [node name="ShootSelfButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=238123634]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 555.0
-offset_right = 531.0
-offset_bottom = 729.0
+offset_left = 479.0
+offset_top = 520.0
+offset_right = 960.0
+offset_bottom = 694.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("12")
 stretch_mode = 0
 
 [node name="ShootDealerButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=1630559196]
 layout_mode = 0
-offset_left = 750.0
-offset_top = 177.0
-offset_right = 1249.0
-offset_bottom = 371.0
+offset_left = 479.0
+offset_top = 200.0
+offset_right = 978.0
+offset_bottom = 394.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("13")
 stretch_mode = 0
 
 [node name="PlayerItemContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=382910475]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 530.0
-offset_right = 780.0
-offset_bottom = 590.0
+offset_left = -24.0
+offset_top = 485.0
+offset_right = 342.0
+offset_bottom = 646.0
 alignment = 1
 
 [node name="DealerItemContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=192837465]
 modulate = Color(0.7, 0.7, 0.7, 1)
+z_index = 38
 layout_mode = 0
-offset_left = 306.0
-offset_top = 142.0
-offset_right = 806.0
-offset_bottom = 202.0
+offset_left = -40.0
+offset_top = 172.0
+offset_right = 299.0
+offset_bottom = 273.0
 alignment = 1
 
 [node name="FeedbackLabel" type="Label" parent="CanvasLayer/UI" unique_id=564738291]
@@ -322,37 +323,37 @@ scale = Vector2(0.06835938, 0.066406265)
 texture = ExtResource("20_p5ymy")
 
 [node name="Main" type="Sprite2D" parent="." unique_id=31606054]
-position = Vector2(574, 321)
+position = Vector2(585, 329.00003)
 scale = Vector2(0.7454427, 0.6328125)
 texture = ExtResource("19_i0j58")
 
 [node name="CanBackgroundRemoved" type="Sprite2D" parent="." unique_id=1689132163]
-position = Vector2(1060, 560.00006)
+position = Vector2(1653.0001, 1346)
 scale = Vector2(0.08276366, 0.09130857)
 texture = ExtResource("20_gyaec")
 
 [node name="CigBackgroundRemoved" type="Sprite2D" parent="." unique_id=1687465374]
-position = Vector2(988, 567)
+position = Vector2(1540, 1194)
 scale = Vector2(0.102050826, 0.10319013)
 texture = ExtResource("21_gyaec")
 
 [node name="LensBackgroundRemoved" type="Sprite2D" parent="." unique_id=549434225]
-position = Vector2(1083, 232)
+position = Vector2(1702, 1051.0001)
 scale = Vector2(0.0732422, 0.08007811)
 texture = ExtResource("22_bpy1e")
 
 [node name="HsawBackgroundRemoved" type="Sprite2D" parent="." unique_id=1623307371]
-position = Vector2(1027, 230.00002)
+position = Vector2(1613, 1362)
 rotation = -1.5707964
 scale = Vector2(0.09326172, 0.10221347)
 texture = ExtResource("23_p5ymy")
 
 [node name="CuffsBackgroundRemoved" type="Sprite2D" parent="." unique_id=1347020934]
-position = Vector2(947, 239.00002)
+position = Vector2(1578, 1126)
 scale = Vector2(0.08935539, 0.10522466)
 texture = ExtResource("24_3va76")
 
 [node name="4CardBackgroundRemoved" type="Sprite2D" parent="." unique_id=447196996]
-position = Vector2(919.0001, 564)
+position = Vector2(1234, 1016)
 scale = Vector2(0.052734468, 0.04964194)
 texture = ExtResource("25_wmecs")
