@@ -1,5 +1,2 @@
+res://Scripts/MainScene.gd
 res://Scenes/MainScene.tscn
-res://Scripts/Systems/DealerTurnLogic.gd
-res://Scripts/Systems/GameStateManager.gd
-res://Scripts/UI/UIManager.gd
-res://Scripts/Systems/RoundSystem.gd

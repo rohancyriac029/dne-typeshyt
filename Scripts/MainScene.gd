@@ -18,15 +18,30 @@ var _vignette_overlay: ColorRect
 var _ghost_ally_sprite: Sprite2D = null  # Created on resurrection
 var _shotgun_glow_tween: Tween = null
 
+# Character sprite references
+var _dealer_sprite: Sprite2D
+var _player_hands_sprite: Sprite2D
+var _stage_sprite: Sprite2D
+
 # Original values for theme reset
 var _original_bg_modulate: Color
+var _original_dealer_modulate: Color
+var _original_hands_modulate: Color
+var _original_stage_modulate: Color
+var _original_dealer_position: Vector2
+var _original_hands_position: Vector2
 var _original_vignette_strength: float
 var _original_vignette_radius: float
 var _original_vignette_softness: float
 
 # Ghost textures
 var _ghost_hands_texture: Texture2D = null
+var _ghost_dealer_texture: Texture2D = null
 var _ghost_ally_texture: Texture2D = null
+
+# Normal textures (for reverting)
+var _normal_hands_texture: Texture2D = null
+var _normal_dealer_texture: Texture2D = null
 
 
 func _ready() -> void:
@@ -72,9 +87,25 @@ func _ready() -> void:
 	_background_sprite = get_node_or_null("Main")
 	_shotgun_sprite    = $ShotgunSprite
 	_vignette_overlay  = get_node_or_null("CanvasLayer/VignetteOverlay")
+	_dealer_sprite     = get_node_or_null("NormalDealer")
+	_player_hands_sprite = get_node_or_null("NormalPlayersHands")
+	_stage_sprite      = get_node_or_null("BareStage")
 
 	if _background_sprite:
 		_original_bg_modulate = _background_sprite.modulate
+	
+	if _dealer_sprite:
+		_original_dealer_modulate = _dealer_sprite.modulate
+		_original_dealer_position = _dealer_sprite.position
+		_normal_dealer_texture = _dealer_sprite.texture
+	
+	if _player_hands_sprite:
+		_original_hands_modulate = _player_hands_sprite.modulate
+		_original_hands_position = _player_hands_sprite.position
+		_normal_hands_texture = _player_hands_sprite.texture
+	
+	if _stage_sprite:
+		_original_stage_modulate = _stage_sprite.modulate
 
 	if _vignette_overlay and _vignette_overlay.material:
 		_original_vignette_strength = _vignette_overlay.material.get_shader_parameter("vignette_strength")
@@ -84,6 +115,8 @@ func _ready() -> void:
 	# Preload ghost textures
 	if ResourceLoader.exists("res://Assets/Characters/ghost_hands Background Removed.png"):
 		_ghost_hands_texture = load("res://Assets/Characters/ghost_hands Background Removed.png")
+	if ResourceLoader.exists("res://Assets/4th_round_dealer.png"):
+		_ghost_dealer_texture = load("res://Assets/4th_round_dealer.png")
 	if ResourceLoader.exists("res://Assets/Characters/ghost_whisperer.png"):
 		_ghost_ally_texture = load("res://Assets/Characters/ghost_whisperer.png")
 
@@ -127,7 +160,41 @@ func _on_gsm_state_changed(new_state) -> void:
 func apply_ghost_theme() -> void:
 	print("[MainScene] Applying ghost theme — the other side")
 
-	# ── 1) Desaturate world sprites — grey/pale, not dark ──────────────
+	# ── 1) Swap character sprites and adjust positions ──────────────
+	if _dealer_sprite and _ghost_dealer_texture:
+		_dealer_sprite.texture = _ghost_dealer_texture
+		# Move dealer up by 30 pixels for ghost round
+		var tween := get_tree().create_tween()
+		tween.tween_property(_dealer_sprite, "position", _dealer_sprite.position + Vector2(0, -30), 1.5).set_ease(Tween.EASE_IN_OUT)
+		print("[MainScene] Swapped dealer sprite to 4th_round_dealer and moved up")
+	
+	if _player_hands_sprite and _ghost_hands_texture:
+		_player_hands_sprite.texture = _ghost_hands_texture
+		# Move player hands down by 30 pixels for ghost round
+		var tween := get_tree().create_tween()
+		tween.tween_property(_player_hands_sprite, "position", _player_hands_sprite.position + Vector2(0, 30), 1.5).set_ease(Tween.EASE_IN_OUT)
+		print("[MainScene] Swapped player hands to ghost_hands and moved down")
+
+	# ── 2) Desaturate and darken sprites slightly ───────────────────
+	#    Subtle black & white effect without losing visibility
+	#    Using a slight desaturation (0.75 saturation) with slight darkening
+	
+	# Stage - subtle desaturation
+	if _stage_sprite:
+		var tween := get_tree().create_tween()
+		tween.tween_property(_stage_sprite, "modulate", Color(0.7, 0.7, 0.75, 1.0), 2.0)
+	
+	# Dealer - keep visible but desaturated
+	if _dealer_sprite:
+		var tween := get_tree().create_tween()
+		tween.tween_property(_dealer_sprite, "modulate", Color(0.75, 0.75, 0.8, 1.0), 2.0)
+	
+	# Player hands - slightly brighter to maintain player focus
+	if _player_hands_sprite:
+		var tween := get_tree().create_tween()
+		tween.tween_property(_player_hands_sprite, "modulate", Color(0.8, 0.8, 0.85, 1.0), 2.0)
+
+	# ── 3) Desaturate world sprites — grey/pale, not dark ──────────────
 	#    Background stays its original brightness but goes grey/desaturated
 	if _background_sprite:
 		var tween := get_tree().create_tween()
@@ -149,7 +216,7 @@ func apply_ghost_theme() -> void:
 		var sg_tween := get_tree().create_tween()
 		sg_tween.tween_property(_shotgun_sprite, "modulate", Color(0.7, 0.7, 0.75, 1.0), 2.0)
 
-	# ── 2) Soft vignette — like light diffused through fog ─────────────
+	# ── 4) Soft vignette — like light diffused through fog ─────────────
 	if _vignette_overlay and _vignette_overlay.material:
 		var mat = _vignette_overlay.material
 		var v_tween := get_tree().create_tween()
@@ -161,15 +228,43 @@ func apply_ghost_theme() -> void:
 		v_tween.parallel().tween_method(func(v): mat.set_shader_parameter("softness", v),
 			_original_vignette_softness, 0.7, 2.0)
 
-	# ── 3) Fog overlay — translucent grey wash over everything ─────────
-	_create_fog_overlay()
-
-	# ── 4) Floating wisps — small pale circles drifting slowly ─────────
+	# ── 5) Floating wisps — small pale circles drifting slowly ─────────
 	_create_ghost_wisps()
 
 
 func _revert_ghost_theme() -> void:
 	print("[MainScene] Reverting ghost theme — returning to the living")
+
+	# ── 1) Restore character sprites and positions ──────────────────────
+	if _dealer_sprite and _normal_dealer_texture:
+		_dealer_sprite.texture = _normal_dealer_texture
+		# Restore original position
+		var tween := get_tree().create_tween()
+		tween.tween_property(_dealer_sprite, "position", _original_dealer_position, 1.0).set_ease(Tween.EASE_IN_OUT)
+		print("[MainScene] Restored dealer sprite to normal_dealer and position")
+	
+	if _player_hands_sprite and _normal_hands_texture:
+		_player_hands_sprite.texture = _normal_hands_texture
+		# Restore original position
+		var tween := get_tree().create_tween()
+		tween.tween_property(_player_hands_sprite, "position", _original_hands_position, 1.0).set_ease(Tween.EASE_IN_OUT)
+		print("[MainScene] Restored player hands to normal_players_hands and position")
+
+	# ── 2) Restore sprite colors ────────────────────────────────────────
+	# Restore stage
+	if _stage_sprite:
+		var tween := get_tree().create_tween()
+		tween.tween_property(_stage_sprite, "modulate", _original_stage_modulate, 1.5)
+	
+	# Restore dealer
+	if _dealer_sprite:
+		var tween := get_tree().create_tween()
+		tween.tween_property(_dealer_sprite, "modulate", _original_dealer_modulate, 1.5)
+	
+	# Restore player hands
+	if _player_hands_sprite:
+		var tween := get_tree().create_tween()
+		tween.tween_property(_player_hands_sprite, "modulate", _original_hands_modulate, 1.5)
 
 	# Restore background
 	if _background_sprite:
@@ -203,45 +298,8 @@ func _revert_ghost_theme() -> void:
 		v_tween.parallel().tween_method(func(v): mat.set_shader_parameter("softness", v),
 			mat.get_shader_parameter("softness"), _original_vignette_softness, 1.5)
 
-	# Remove fog overlay
-	_remove_fog_overlay()
-
 	# Remove wisps
 	_remove_ghost_wisps()
-
-
-# ── Fog overlay ───────────────────────────────────────────────────────
-
-var _fog_overlay: ColorRect = null
-
-func _create_fog_overlay() -> void:
-	if _fog_overlay:
-		return
-	_fog_overlay = ColorRect.new()
-	_fog_overlay.name = "GhostFogOverlay"
-	_fog_overlay.anchors_preset = Control.PRESET_FULL_RECT
-	_fog_overlay.color = Color(0.55, 0.55, 0.6, 0.0)  # Start invisible
-	_fog_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_fog_overlay.z_index = 90
-
-	var canvas = get_node_or_null("CanvasLayer")
-	if canvas:
-		canvas.add_child(_fog_overlay)
-	else:
-		add_child(_fog_overlay)
-
-	# Fade in to a subtle translucent fog
-	var tween := get_tree().create_tween()
-	tween.tween_property(_fog_overlay, "color:a", 0.12, 3.0).set_ease(Tween.EASE_IN_OUT)
-
-
-func _remove_fog_overlay() -> void:
-	if not _fog_overlay:
-		return
-	var tween := get_tree().create_tween()
-	tween.tween_property(_fog_overlay, "color:a", 0.0, 1.0)
-	tween.tween_callback(_fog_overlay.queue_free)
-	_fog_overlay = null
 
 
 # ── Ghost wisps (floating particles) ──────────────────────────────────
@@ -254,8 +312,8 @@ func _create_ghost_wisps() -> void:
 	_wisp_particles = CPUParticles2D.new()
 	_wisp_particles.name = "GhostWisps"
 	_wisp_particles.emitting = true
-	_wisp_particles.amount = 20
-	_wisp_particles.lifetime = 8.0
+	_wisp_particles.amount = 35  # Increased from 20 for more atmosphere
+	_wisp_particles.lifetime = 10.0  # Longer lifetime
 	_wisp_particles.position = Vector2(568, 400)  # Center of screen
 	_wisp_particles.z_index = 3
 
@@ -265,21 +323,21 @@ func _create_ghost_wisps() -> void:
 
 	# Movement — slow drift upward with slight spread
 	_wisp_particles.direction = Vector2(0, -1)
-	_wisp_particles.spread = 45.0
-	_wisp_particles.initial_velocity_min = 8.0
-	_wisp_particles.initial_velocity_max = 20.0
+	_wisp_particles.spread = 50.0  # Slightly more spread
+	_wisp_particles.initial_velocity_min = 6.0
+	_wisp_particles.initial_velocity_max = 18.0
 	_wisp_particles.gravity = Vector2(0, 0)
 
-	# Size — small orbs
-	_wisp_particles.scale_amount_min = 1.5
-	_wisp_particles.scale_amount_max = 4.0
+	# Size — slightly larger orbs for better visibility
+	_wisp_particles.scale_amount_min = 2.0
+	_wisp_particles.scale_amount_max = 5.0
 
-	# Color — pale white/blue-grey, fading in and out
+	# Color — more visible pale blue-white, ghostly glow
 	var gradient := Gradient.new()
-	gradient.add_point(0.0, Color(0.7, 0.75, 0.85, 0.0))
-	gradient.add_point(0.2, Color(0.7, 0.75, 0.85, 0.25))
-	gradient.add_point(0.8, Color(0.6, 0.65, 0.75, 0.15))
-	gradient.add_point(1.0, Color(0.6, 0.65, 0.75, 0.0))
+	gradient.add_point(0.0, Color(0.65, 0.75, 0.9, 0.0))   # Fade in
+	gradient.add_point(0.15, Color(0.7, 0.8, 0.95, 0.35))  # More visible peak
+	gradient.add_point(0.85, Color(0.6, 0.7, 0.85, 0.25))  # Sustained glow
+	gradient.add_point(1.0, Color(0.55, 0.65, 0.8, 0.0))   # Fade out
 	_wisp_particles.color_ramp = gradient
 
 	add_child(_wisp_particles)

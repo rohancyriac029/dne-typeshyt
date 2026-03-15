@@ -7,9 +7,9 @@
 [ext_resource type="Script" uid="uid://bqmishcydqopm" path="res://Scripts/Systems/PlayerController.gd" id="9"]
 [ext_resource type="Script" uid="uid://r62f8htok35k" path="res://Scripts/Systems/DealerTurnLogic.gd" id="10"]
 [ext_resource type="Script" uid="uid://b508ys7eeiodt" path="res://Scripts/UI/UIManager.gd" id="11"]
-[ext_resource type="Texture2D" uid="uid://v8micpc8rbxw" path="res://Assets/UI/shoot_self_button.png" id="12"]
-[ext_resource type="Texture2D" uid="uid://2xb351x643vy" path="res://Assets/UI/shoot_dealer_button.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://hsof5oa4eveb" path="res://Assets/UI/you.png" id="13_r0vnq"]
 [ext_resource type="Shader" uid="uid://cxose71ao36v2" path="res://Scripts/vignette.gdshader" id="14"]
+[ext_resource type="Texture2D" uid="uid://kroxr3arp1yi" path="res://Assets/UI/DEALER_TEXT.png" id="14_c3pre"]
 [ext_resource type="Texture2D" uid="uid://c5ld18wv3r6v4" path="res://Assets/Objects/cig_sprite2.png" id="17_c1ier"]
 [ext_resource type="Texture2D" uid="uid://cex62nyxixff" path="res://Assets/Objects/magnifying_glass_sprite2.png" id="18_gyaec"]
 [ext_resource type="Texture2D" uid="uid://c8g36hblxga70" path="res://Assets/Objects/soda_sprite1.png" id="19_bpy1e"]
@@ -229,22 +229,22 @@ rotation = 1.5707964
 
 [node name="ShootSelfButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=238123634]
 layout_mode = 0
-offset_left = 479.0
-offset_top = 520.0
-offset_right = 960.0
-offset_bottom = 694.0
+offset_left = 512.0
+offset_top = 505.0
+offset_right = 872.0
+offset_bottom = 627.0
 scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("12")
+texture_normal = ExtResource("13_r0vnq")
 stretch_mode = 0
 
 [node name="ShootDealerButton" type="TextureButton" parent="CanvasLayer/UI" unique_id=1630559196]
 layout_mode = 0
-offset_left = 479.0
-offset_top = 200.0
-offset_right = 978.0
-offset_bottom = 394.0
-scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("13")
+offset_left = 537.0
+offset_top = 235.0
+offset_right = 1258.0
+offset_bottom = 395.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("14_c3pre")
 stretch_mode = 0
 
 [node name="PlayerItemContainer" type="HBoxContainer" parent="CanvasLayer/UI" unique_id=382910475]
@@ -362,12 +362,12 @@ scale = Vector2(0.052734468, 0.04964194)
 texture = ExtResource("25_wmecs")
 
 [node name="BareStage" type="Sprite2D" parent="." unique_id=207128849]
-position = Vector2(576.5001, 331.49994)
+position = Vector2(575.99994, 323)
 scale = Vector2(0.7467448, 0.63378906)
 texture = ExtResource("26_r0vnq")
 
 [node name="NormalPlayersHands" type="Sprite2D" parent="." unique_id=642601079]
-position = Vector2(554, 604.0001)
+position = Vector2(578, 607.00006)
 scale = Vector2(0.24609376, 0.25097656)
 texture = ExtResource("27_c3pre")
 
